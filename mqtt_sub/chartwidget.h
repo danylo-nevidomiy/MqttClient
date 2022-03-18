@@ -25,6 +25,7 @@ protected:
      * */
     //    void paintEvent(QPaintEvent *event);
     void showEvent(QShowEvent *event);
+//    void show();
 
 private:
     Ui::ChartWidget *ui;

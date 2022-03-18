@@ -8,7 +8,7 @@ ChartWidget::ChartWidget(QWidget *parent) :
     ui->setupUi(this);
     this->setParent(parent);
     this->show();
-    this->move(0, 200);
+    this->move(400, 200);
     gradient = new QLinearGradient(QPointF(0, 0), QPointF(0, 1));
     gradient->setColorAt(0.0, 0x3cc63c);
     gradient->setColorAt(1.0, 0x26f626);
@@ -16,13 +16,7 @@ ChartWidget::ChartWidget(QWidget *parent) :
     pen = new QPen(0x059605);
     pen->setWidth(3);
     chart->setTitle(title);
-    series->setName(name);
-    series->setPen(*pen);
-    series->setBrush(*gradient);
-    chart->axes(Qt::Horizontal).first()->setRange(0, 30);
-    chart->axes(Qt::Vertical).first()->setRange(0, 10);
-    chart->createDefaultAxes();
-    chart->addSeries(series);
+
     this->setRenderHint(QPainter::Antialiasing);
     this->setChart(chart);
 
@@ -47,14 +41,43 @@ void ChartWidget::showEvent(QShowEvent *event)
 {
     Q_UNUSED(event);
     series->clear();
+    qDebug() << "size = " << points.size();
     for(int i=0;i<points.size();i++)
     {
+        qDebug() << "points.at(i) = " << points.at(i);
         *series << QPointF(i, points.at(i));
     }
-//    *series << QPointF(1, 5) << QPointF(3, 7) << QPointF(7, 6) << QPointF(9, 7) << QPointF(12, 6)
-//            << QPointF(16, 7) << QPointF(18, 5);
-
+    series->setName(name);
+    series->setPen(*pen);
+    series->setBrush(*gradient);
+    chart->addSeries(series);
+    chart->createDefaultAxes();
+    chart->axes(Qt::Horizontal).first()->setRange(0, 30);
+    chart->axes(Qt::Vertical).first()->setRange(0, 30);
+//    chart->axes(Qt::Horizontal).first()->setRange(0, maxValuesCount);
+//    chart->axes(Qt::Vertical).first()->setRange(qRound(minValue), qRound(maxValue));
 }
+//void ChartWidget::show()
+//{
+//    series->clear();
+//    qDebug() << "size = " << points.size();
+//    for(int i=0;i<points.size();i++)
+//    {
+//        qDebug() << "points.at(i) = " << points.at(i);
+//        *series << QPointF(i, points.at(i));
+//    }
+
+//    series->setName(name);
+//    series->setPen(*pen);
+//    series->setBrush(*gradient);
+//    chart->addSeries(series);
+//    chart->createDefaultAxes();
+////    chart->axes(Qt::Horizontal).first()->setRange(0, 30);
+////    chart->axes(Qt::Vertical).first()->setRange(0, 30);
+//    chart->axes(Qt::Horizontal).first()->setRange(0, maxValuesCount);
+//    chart->axes(Qt::Vertical).first()->setRange(minValue, maxValue);
+//    QChartView::show();
+//}
 void ChartWidget::addValue(double value)
 {
        if(value > maxValue)
@@ -65,6 +88,7 @@ void ChartWidget::addValue(double value)
            minValue = value;
        }
     points.append(value);
+    qDebug() << "value = " << value;
     if(points.size() > maxValuesCount)
     {
         points.erase(points.begin());
@@ -82,6 +106,7 @@ void ChartWidget::addValue(double value)
         maxValue = max;
         minValue = min;
     }
-
+//    update();
+//    hide();
     show();
 }

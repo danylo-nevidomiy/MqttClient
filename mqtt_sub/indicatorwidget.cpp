@@ -8,9 +8,9 @@ IndicatorWidget::IndicatorWidget(QWidget *parent) :
 //    ui = new Ui::Widget();
     ui->setupUi(this);
 //    this->resize(500, 500);
-//    this->setParent(parent);
-//    this->show();
-//    this->move(0, 200);
+    this->setParent(parent);
+    this->show();
+    this->move(0, 200);
 }
 
 IndicatorWidget::~IndicatorWidget()
