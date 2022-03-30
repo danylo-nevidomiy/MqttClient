@@ -29,6 +29,8 @@ private slots:
 
     void on_radioButton_blue_clicked();
 
+    void on_slider_valueChanged(int value);
+
 private:
     Ui::IndicatorWidget *ui;
     const int radius = 150;

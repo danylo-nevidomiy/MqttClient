@@ -34,7 +34,7 @@ private:
     double maxValue = 0;
     double minValue = 0;
     QString title = "Simple areachart example";
-    QString name = "Batman";
+    QString name = "Victims";
     QLinearGradient *gradient;
     QPen *pen;
     QLineSeries *series = new QLineSeries();

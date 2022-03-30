@@ -16,7 +16,7 @@ MainWindow::MainWindow(QWidget *parent)
 
     chart = new ChartWidget(this);
     cli = new QMqttClient();
-    cli->setHostname("185.217.198.251");
+    cli->setHostname("localhost");
     cli->setPort(1883);
     cli->connectToHost();
     ui->topicLine->setText("test");
