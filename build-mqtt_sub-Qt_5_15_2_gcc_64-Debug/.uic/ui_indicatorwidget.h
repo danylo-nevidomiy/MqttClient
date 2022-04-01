@@ -11,6 +11,7 @@
 
 #include <QtCore/QVariant>
 #include <QtWidgets/QApplication>
+#include <QtWidgets/QLabel>
 #include <QtWidgets/QSlider>
 #include <QtWidgets/QWidget>
 
@@ -20,6 +21,7 @@ class Ui_IndicatorWidget
 {
 public:
     QSlider *slider;
+    QLabel *label;
 
     void setupUi(QWidget *IndicatorWidget)
     {
@@ -30,6 +32,9 @@ public:
         slider->setObjectName(QString::fromUtf8("slider"));
         slider->setGeometry(QRect(10, 271, 381, 20));
         slider->setOrientation(Qt::Horizontal);
+        label = new QLabel(IndicatorWidget);
+        label->setObjectName(QString::fromUtf8("label"));
+        label->setGeometry(QRect(20, 10, 58, 18));
 
         retranslateUi(IndicatorWidget);
 
@@ -39,6 +44,7 @@ public:
     void retranslateUi(QWidget *IndicatorWidget)
     {
         IndicatorWidget->setWindowTitle(QCoreApplication::translate("IndicatorWidget", "Form", nullptr));
+        label->setText(QString());
     } // retranslateUi
 
 };

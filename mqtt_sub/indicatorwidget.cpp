@@ -14,7 +14,13 @@ IndicatorWidget::IndicatorWidget(QWidget *parent) :
     this->move(0, 200);
 
     ui->slider->setRange(0, 180);
+    ui->slider->setVisible(false);
+    arrow.load("/home/daniil/Repositories/qtmqtt/examples/mqtt/mqtt_sub/arrow-upper-right.png");
+    Q_ASSERT(!arrow.isNull());
     //    ui->label->setPixmap(QPixmap("/home/daniil/Repositories/qtmqtt/examples/mqtt/mqtt_sub/711dSgHSD9L.png"));
+   clock.load("/home/daniil/Repositories/qtmqtt/examples/mqtt/mqtt_sub/pngegg.png");
+   Q_ASSERT(!clock.isNull());
+
 }
 
 IndicatorWidget::~IndicatorWidget()
@@ -28,36 +34,37 @@ void IndicatorWidget::paintEvent(QPaintEvent *event)
     QPainter painter(this); // Create object of QPainter
 //    painter.begin(this);
     // Set Brush
-    painter.setPen(QPen(Qt::black, 1, Qt::SolidLine, Qt::FlatCap));
+//    painter.setPen(QPen(Qt::black, 1, Qt::SolidLine, Qt::FlatCap));
 
-    /* Check radio buttins
-     * */
+//    /* Check radio buttins
+//     * */
 
-    painter.setBrush(QBrush(Qt::red, Qt::SolidPattern));
-    painter.drawEllipse(originX, originY, radius, radius);
-    painter.setBrush(QBrush(Qt::white, Qt::SolidPattern));
-    double newRadius = radius*0.5;
-    painter.drawEllipse(originX+newRadius/2, originY+newRadius/2, newRadius, newRadius);
-    int x = 175;
-    int y = 125;
-    QLineF line(x, y, 175.0, 50.0);
-    line.setAngle(angle);
-    painter.drawLine(line);
-    int imageWidth = radius/2;
-    int imageHeight = radius/2;
+//    painter.setBrush(QBrush(Qt::red, Qt::SolidPattern));
+//    painter.drawEllipse(originX, originY, radius, radius);
+//    painter.setBrush(QBrush(Qt::white, Qt::SolidPattern));
+//    double newRadius = radius*0.5;
+//    painter.drawEllipse(originX+newRadius/2, originY+newRadius/2, newRadius, newRadius);
+//    int x = 175;
+//    int y = 125;
+//    QLineF line(x, y, 175.0, 50.0);
+//    line.setAngle(angle);
+//    painter.drawLine(line);
+//    int imageWidth = radius/2;
+//    int imageHeight = radius/2;
 
-    QImage img("/home/daniil/Repositories/qtmqtt/examples/mqtt/mqtt_sub/arrow-upper-right.png");
-//    QImage rotatedImg = img.transformed(QMatrix().rotate(angle));
-//    rotatedImg.save("/home/daniil/Repositories/qtmqtt/examples/mqtt/mqtt_sub/rt1.png");
-    Q_ASSERT(!img.isNull());
-    QRect target(150,75,50,50);
+//    ui->label->setPixmap(QPixmap::fromImage(clock));
+//    ui->label->move(200-clock.width()/2, 150-clock.height()/2);
+
+//    QRect target((this->height()-clock.height()/2),(this->width()-clock.width())/2,clock.height(), clock.width());
+        QRect target(50,0,clock.height(), clock.width());
+    painter.drawImage(target, clock);
     //      target.moveTo(0, 0);
     //      painter.rotate(60);
     QTransform trans;
     // Move to the center of the widget
 
 
-trans.translate(this->width()/2-25, this->height()/2-25);
+trans.translate(this->width()/2, this->height()/2);
 //     Do the rotation
     trans.rotate(angle);
 
@@ -68,7 +75,7 @@ trans.translate(0,0);
 
     painter.setTransform(trans);
     // Draw the image at (0,0), because everything is already handled by the transformation
-    painter.drawImage(QPoint(0,0), img.scaledToHeight(50));
+    painter.drawImage(QPoint(0,0), arrow.scaledToHeight(100));
     //      painter.resetTransform();
     //      target.moveTo(150, 75);
 //    painter.drawImage(target, img);

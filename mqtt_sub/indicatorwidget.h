@@ -33,6 +33,8 @@ private slots:
 
 private:
     Ui::IndicatorWidget *ui;
+    QImage arrow;
+    QImage clock;
     const int radius = 150;
     const int originX = 100;
     const int originY = 50;
