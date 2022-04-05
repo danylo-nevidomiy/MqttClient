@@ -8,6 +8,8 @@ ChartWidget::ChartWidget(QWidget *parent) :
     ui->setupUi(this);
     this->setParent(parent);
     this->show();
+//        this->setFixedWidth(200);
+//        this->setFixedHeight(200);
     this->move(400, 200);
     gradient = new QLinearGradient(QPointF(0, 0), QPointF(0, 1));
     gradient->setColorAt(0.0, 0x3cc63c);

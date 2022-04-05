@@ -24,6 +24,12 @@ public:
         if (ChartWidget->objectName().isEmpty())
             ChartWidget->setObjectName(QString::fromUtf8("ChartWidget"));
         ChartWidget->resize(400, 300);
+        QSizePolicy sizePolicy(QSizePolicy::Fixed, QSizePolicy::Fixed);
+        sizePolicy.setHorizontalStretch(0);
+        sizePolicy.setVerticalStretch(0);
+        sizePolicy.setHeightForWidth(ChartWidget->sizePolicy().hasHeightForWidth());
+        ChartWidget->setSizePolicy(sizePolicy);
+        ChartWidget->setMinimumSize(QSize(400, 300));
 
         retranslateUi(ChartWidget);
 

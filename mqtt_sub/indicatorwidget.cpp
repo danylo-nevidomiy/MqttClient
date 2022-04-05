@@ -9,17 +9,16 @@ IndicatorWidget::IndicatorWidget(QWidget *parent) :
     //    ui = new Ui::Widget();
     ui->setupUi(this);
     this->resize(400, 300);
-    this->setParent(parent);
+//    this->setParent(parent);
     this->show();
     this->move(0, 200);
 
     ui->slider->setRange(0, 180);
-    ui->slider->setVisible(false);
+    ui->slider->setVisible(true);
     arrow.load("/home/daniil/Repositories/qtmqtt/examples/mqtt/mqtt_sub/arrow-upper-right.png");
     Q_ASSERT(!arrow.isNull());
-    //    ui->label->setPixmap(QPixmap("/home/daniil/Repositories/qtmqtt/examples/mqtt/mqtt_sub/711dSgHSD9L.png"));
-   clock.load("/home/daniil/Repositories/qtmqtt/examples/mqtt/mqtt_sub/pngegg.png");
-   Q_ASSERT(!clock.isNull());
+    clock.load("/home/daniil/Repositories/qtmqtt/examples/mqtt/mqtt_sub/pngegg.png");
+    Q_ASSERT(!clock.isNull());
 
 }
 
@@ -32,72 +31,15 @@ void IndicatorWidget::paintEvent(QPaintEvent *event)
 {
     Q_UNUSED(event);
     QPainter painter(this); // Create object of QPainter
-//    painter.begin(this);
-    // Set Brush
-//    painter.setPen(QPen(Qt::black, 1, Qt::SolidLine, Qt::FlatCap));
-
-//    /* Check radio buttins
-//     * */
-
-//    painter.setBrush(QBrush(Qt::red, Qt::SolidPattern));
-//    painter.drawEllipse(originX, originY, radius, radius);
-//    painter.setBrush(QBrush(Qt::white, Qt::SolidPattern));
-//    double newRadius = radius*0.5;
-//    painter.drawEllipse(originX+newRadius/2, originY+newRadius/2, newRadius, newRadius);
-//    int x = 175;
-//    int y = 125;
-//    QLineF line(x, y, 175.0, 50.0);
-//    line.setAngle(angle);
-//    painter.drawLine(line);
-//    int imageWidth = radius/2;
-//    int imageHeight = radius/2;
-
-//    ui->label->setPixmap(QPixmap::fromImage(clock));
-//    ui->label->move(200-clock.width()/2, 150-clock.height()/2);
-
-//    QRect target((this->height()-clock.height()/2),(this->width()-clock.width())/2,clock.height(), clock.width());
-        QRect target(50,0,clock.height(), clock.width());
+    QRect target(50,0,clock.height(), clock.width());
     painter.drawImage(target, clock);
-    //      target.moveTo(0, 0);
-    //      painter.rotate(60);
+    painter.rotate(60);
     QTransform trans;
-    // Move to the center of the widget
-
-
-trans.translate(this->width()/2, this->height()/2);
-//     Do the rotation
+    trans.translate(this->width()/2, this->height()/2);
     trans.rotate(angle);
-
-trans.translate(0,0);
-    // Move to the center of the image
-//    trans.translate(-this->width()/2, -this->height()/2);
-
-
+    trans.translate(0,0);
     painter.setTransform(trans);
-    // Draw the image at (0,0), because everything is already handled by the transformation
     painter.drawImage(QPoint(0,0), arrow.scaledToHeight(100));
-    //      painter.resetTransform();
-    //      target.moveTo(150, 75);
-//    painter.drawImage(target, img);
-    //    QRect rect = QRect(originX, originY+radius/2, radius, radius/2);
-    //    painter.fillRect(rect, Qt::white);
-    //    if(ui->radioButton_red->isChecked()){
-    //        // Draw red circle
-    //        painter.setBrush(QBrush(Qt::red, Qt::SolidPattern));
-    //        painter.drawEllipse(originX, originY, radius, radius);
-    //    } else if(ui->radioButton_green->isChecked()){
-    //        // Draw green circle
-    //        painter.setBrush(QBrush(Qt::green, Qt::SolidPattern));
-    //        painter.drawEllipse(originX, originY, radius, radius);
-    //    } else if(ui->radioButton_blue->isChecked()){
-    //        // Draw blue circle
-    //        painter.setBrush(QBrush(Qt::blue, Qt::SolidPattern));
-    //        painter.drawEllipse(originX, originY, radius, radius);
-    //    } else {
-    //        // Draw white circle
-    //        painter.setBrush(QBrush(Qt::white, Qt::SolidPattern));
-    //        painter.drawEllipse(originX, originY, radius, radius);
-    //    }
     painter.end();
 }
 
@@ -127,7 +69,7 @@ void IndicatorWidget::on_radioButton_blue_clicked()
 void IndicatorWidget::on_slider_valueChanged(int value)
 {
     angle = value+135;
-//    std::cout << "angle = " << angle;
+    //    std::cout << "angle = " << angle;
     repaint();
 }
 

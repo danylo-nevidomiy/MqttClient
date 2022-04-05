@@ -11,12 +11,16 @@
 
 #include <QtCore/QVariant>
 #include <QtWidgets/QApplication>
+#include <QtWidgets/QFormLayout>
+#include <QtWidgets/QGridLayout>
 #include <QtWidgets/QLabel>
 #include <QtWidgets/QLineEdit>
 #include <QtWidgets/QMainWindow>
 #include <QtWidgets/QMenuBar>
 #include <QtWidgets/QPushButton>
+#include <QtWidgets/QScrollArea>
 #include <QtWidgets/QStatusBar>
+#include <QtWidgets/QVBoxLayout>
 #include <QtWidgets/QWidget>
 
 QT_BEGIN_NAMESPACE
@@ -25,12 +29,19 @@ class Ui_MainWindow
 {
 public:
     QWidget *centralwidget;
+    QVBoxLayout *verticalLayout;
+    QWidget *toolsWidget;
+    QFormLayout *formLayout;
     QPushButton *pushButton_sub;
     QLineEdit *topicLine;
     QLabel *messageLabel;
     QLabel *messageText;
     QLabel *sliderText;
     QLabel *sliderValue;
+    QScrollArea *scrollArea;
+    QWidget *scrollAreaWidgetContents_2;
+    QWidget *gridLayoutWidget;
+    QGridLayout *gridLayout;
     QMenuBar *menubar;
     QStatusBar *statusbar;
 
@@ -38,31 +49,86 @@ public:
     {
         if (MainWindow->objectName().isEmpty())
             MainWindow->setObjectName(QString::fromUtf8("MainWindow"));
-        MainWindow->resize(800, 600);
+        MainWindow->resize(808, 599);
+        QSizePolicy sizePolicy(QSizePolicy::MinimumExpanding, QSizePolicy::MinimumExpanding);
+        sizePolicy.setHorizontalStretch(0);
+        sizePolicy.setVerticalStretch(0);
+        sizePolicy.setHeightForWidth(MainWindow->sizePolicy().hasHeightForWidth());
+        MainWindow->setSizePolicy(sizePolicy);
         centralwidget = new QWidget(MainWindow);
         centralwidget->setObjectName(QString::fromUtf8("centralwidget"));
-        pushButton_sub = new QPushButton(centralwidget);
+        verticalLayout = new QVBoxLayout(centralwidget);
+        verticalLayout->setObjectName(QString::fromUtf8("verticalLayout"));
+        verticalLayout->setContentsMargins(0, 0, 0, -1);
+        toolsWidget = new QWidget(centralwidget);
+        toolsWidget->setObjectName(QString::fromUtf8("toolsWidget"));
+        QSizePolicy sizePolicy1(QSizePolicy::Preferred, QSizePolicy::Fixed);
+        sizePolicy1.setHorizontalStretch(0);
+        sizePolicy1.setVerticalStretch(0);
+        sizePolicy1.setHeightForWidth(toolsWidget->sizePolicy().hasHeightForWidth());
+        toolsWidget->setSizePolicy(sizePolicy1);
+        formLayout = new QFormLayout(toolsWidget);
+        formLayout->setObjectName(QString::fromUtf8("formLayout"));
+        pushButton_sub = new QPushButton(toolsWidget);
         pushButton_sub->setObjectName(QString::fromUtf8("pushButton_sub"));
-        pushButton_sub->setGeometry(QRect(10, 10, 80, 26));
-        topicLine = new QLineEdit(centralwidget);
+
+        formLayout->setWidget(0, QFormLayout::LabelRole, pushButton_sub);
+
+        topicLine = new QLineEdit(toolsWidget);
         topicLine->setObjectName(QString::fromUtf8("topicLine"));
-        topicLine->setGeometry(QRect(110, 10, 113, 26));
-        messageLabel = new QLabel(centralwidget);
+
+        formLayout->setWidget(0, QFormLayout::FieldRole, topicLine);
+
+        messageLabel = new QLabel(toolsWidget);
         messageLabel->setObjectName(QString::fromUtf8("messageLabel"));
-        messageLabel->setGeometry(QRect(20, 50, 70, 20));
-        messageText = new QLabel(centralwidget);
+        messageLabel->setLayoutDirection(Qt::LeftToRight);
+
+        formLayout->setWidget(1, QFormLayout::LabelRole, messageLabel);
+
+        messageText = new QLabel(toolsWidget);
         messageText->setObjectName(QString::fromUtf8("messageText"));
-        messageText->setGeometry(QRect(120, 50, 81, 20));
-        sliderText = new QLabel(centralwidget);
+
+        formLayout->setWidget(1, QFormLayout::FieldRole, messageText);
+
+        sliderText = new QLabel(toolsWidget);
         sliderText->setObjectName(QString::fromUtf8("sliderText"));
-        sliderText->setGeometry(QRect(20, 80, 70, 20));
-        sliderValue = new QLabel(centralwidget);
+        sliderText->setLayoutDirection(Qt::LeftToRight);
+
+        formLayout->setWidget(2, QFormLayout::LabelRole, sliderText);
+
+        sliderValue = new QLabel(toolsWidget);
         sliderValue->setObjectName(QString::fromUtf8("sliderValue"));
-        sliderValue->setGeometry(QRect(120, 80, 81, 20));
+
+        formLayout->setWidget(2, QFormLayout::FieldRole, sliderValue);
+
+
+        verticalLayout->addWidget(toolsWidget);
+
+        scrollArea = new QScrollArea(centralwidget);
+        scrollArea->setObjectName(QString::fromUtf8("scrollArea"));
+        sizePolicy.setHeightForWidth(scrollArea->sizePolicy().hasHeightForWidth());
+        scrollArea->setSizePolicy(sizePolicy);
+        scrollArea->setWidgetResizable(true);
+        scrollAreaWidgetContents_2 = new QWidget();
+        scrollAreaWidgetContents_2->setObjectName(QString::fromUtf8("scrollAreaWidgetContents_2"));
+        scrollAreaWidgetContents_2->setGeometry(QRect(0, 0, 806, 444));
+        sizePolicy.setHeightForWidth(scrollAreaWidgetContents_2->sizePolicy().hasHeightForWidth());
+        scrollAreaWidgetContents_2->setSizePolicy(sizePolicy);
+        gridLayoutWidget = new QWidget(scrollAreaWidgetContents_2);
+        gridLayoutWidget->setObjectName(QString::fromUtf8("gridLayoutWidget"));
+        gridLayoutWidget->setGeometry(QRect(219, 139, 161, 81));
+        gridLayout = new QGridLayout(gridLayoutWidget);
+        gridLayout->setObjectName(QString::fromUtf8("gridLayout"));
+        gridLayout->setSizeConstraint(QLayout::SetMaximumSize);
+        gridLayout->setContentsMargins(0, 0, 0, 0);
+        scrollArea->setWidget(scrollAreaWidgetContents_2);
+
+        verticalLayout->addWidget(scrollArea);
+
         MainWindow->setCentralWidget(centralwidget);
         menubar = new QMenuBar(MainWindow);
         menubar->setObjectName(QString::fromUtf8("menubar"));
-        menubar->setGeometry(QRect(0, 0, 800, 23));
+        menubar->setGeometry(QRect(0, 0, 808, 23));
         MainWindow->setMenuBar(menubar);
         statusbar = new QStatusBar(MainWindow);
         statusbar->setObjectName(QString::fromUtf8("statusbar"));

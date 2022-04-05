@@ -5,17 +5,36 @@
 #include <QtWidgets/QMessageBox>
 #include <QString>
 #include <QLayout>
-
+#include <QColor>
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
     , ui(new Ui::MainWindow)
 {
 
     ui->setupUi(this);
-    widget = new IndicatorWidget(this);
+    widget = new IndicatorWidget(ui->scrollAreaWidgetContents_2);
+    chart = new ChartWidget(ui->scrollAreaWidgetContents_2);
 
-    chart = new ChartWidget(this);
+    //    ui->scrollArea->setParent(this);
+    //    ui->scrollArea->setVerticalScrollBarPolicy(Qt::ScrollBarAlwaysOn);
+    //    ui->scrollArea->setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOn);
+    //    ui->scrollArea->setWidgetResizable( true );
+    //    ui->scrollArea->setGeometry( 0, 0, 1000, 1000 );
+    //    ui->scrollArea->setWidget(ui->scrollAreaWidgetContents);
+
+    auto p = ui->scrollAreaWidgetContents_2->palette();
+    p.setColor(ui->scrollAreaWidgetContents_2->backgroundRole(), Qt::red);
+    ui->scrollAreaWidgetContents_2->setPalette(p);
+
+ui->gridLayout = new QGridLayout(ui->scrollAreaWidgetContents_2);
+    ui->gridLayout->addWidget(widget);
+    ui->gridLayout->addWidget(chart);
+    //    ui->scrollAreaWidgetContents->setWidgetResizable(true);
     cli = new QMqttClient();
+    //    chart->move(400, 200);
+    //    ui->gridLayout->addWidget(chart);
+    //    ui->gridLayout->addWidget(widget);
+    //    ui->widget_2->setBackgroundRole(QPalette::Dark);
     cli->setHostname("localhost");
     cli->setPort(1883);
     cli->connectToHost();
