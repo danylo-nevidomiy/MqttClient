@@ -39,3 +39,4 @@ subscriptions/*
 simpleclient/*
 quickpublication/*
 consolepubsub/*
+*.ui.autosave

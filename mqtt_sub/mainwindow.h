@@ -7,6 +7,7 @@
 //#include <indicator.h>
 #include "indicatorwidget.h"
 #include "chartwidget.h"
+#include "addwidgetdialog.h"
 
 QT_BEGIN_NAMESPACE
 namespace Ui { class MainWindow; }
@@ -23,6 +24,8 @@ public:
 private slots:
 
     void on_pushButton_sub_clicked();
+    void on_actionAdd_triggered();
+    void AddWidget(QString type);
 
 private:
     Ui::MainWindow *ui;
@@ -32,6 +35,9 @@ private:
 //        MyGraphicView   *myPicture;     // Наш кастомный виджет
     IndicatorWidget *widget;
     ChartWidget *chart;
+    IndicatorWidget *indicator;
+    AddWidgetDialog *awd;
+
     void sliderSubscription();
 };
 #endif // MAINWINDOW_H

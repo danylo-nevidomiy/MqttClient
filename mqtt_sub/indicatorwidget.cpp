@@ -14,7 +14,7 @@ IndicatorWidget::IndicatorWidget(QWidget *parent) :
     this->move(0, 200);
 
     ui->slider->setRange(0, 180);
-    ui->slider->setVisible(true);
+    ui->slider->setVisible(false);
     arrow.load("/home/daniil/Repositories/qtmqtt/examples/mqtt/mqtt_sub/arrow-upper-right.png");
     Q_ASSERT(!arrow.isNull());
     clock.load("/home/daniil/Repositories/qtmqtt/examples/mqtt/mqtt_sub/pngegg.png");

@@ -4,6 +4,7 @@
 #include <QWidget>
 #include <QPainter>
 #include <QtCharts>
+#include <mqttwidget.h>
 
 using namespace QtCharts;
 
@@ -11,7 +12,7 @@ namespace Ui {
 class ChartWidget;
 }
 
-class ChartWidget : public QChartView
+class ChartWidget : public MqttWidget
 {
     Q_OBJECT
 

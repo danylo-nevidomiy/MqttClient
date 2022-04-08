@@ -9,21 +9,26 @@ CONFIG += c++11
 #DEFINES += QT_DISABLE_DEPRECATED_BEFORE=0x060000    # disables all the APIs deprecated before Qt 6.0.0
 
 SOURCES += \
+    addwidgetdialog.cpp \
     chartwidget.cpp \
 #    coordinatemapper.cpp \
     #indicator.cpp \
     indicatorwidget.cpp \
     main.cpp \
-    mainwindow.cpp
+    mainwindow.cpp \
+    mqttwidget.cpp
 
 HEADERS += \
+    addwidgetdialog.h \
     chartwidget.h \
 #    coordinatemapper.h \
     #indicator.h \
     indicatorwidget.h \
-    mainwindow.h
+    mainwindow.h \
+    mqttwidget.h
 
 FORMS += \
+    addwidgetdialog.ui \
     chartwidget.ui \
     indicatorwidget.ui \
     mainwindow.ui

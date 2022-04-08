@@ -2,7 +2,7 @@
 #include "ui_chartwidget.h"
 
 ChartWidget::ChartWidget(QWidget *parent) :
-    QChartView(parent),
+    MqttWidget(parent),
     ui(new Ui::ChartWidget)
 {
     ui->setupUi(this);

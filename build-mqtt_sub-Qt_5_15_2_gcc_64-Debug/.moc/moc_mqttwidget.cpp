@@ -1,5 +1,5 @@
 /****************************************************************************
-** Meta object code from reading C++ file 'chartwidget.h'
+** Meta object code from reading C++ file 'mqttwidget.h'
 **
 ** Created by: The Qt Meta Object Compiler version 67 (Qt 5.15.2)
 **
@@ -7,11 +7,11 @@
 *****************************************************************************/
 
 #include <memory>
-#include "../../mqtt_sub/chartwidget.h"
+#include "../../mqtt_sub/mqttwidget.h"
 #include <QtCore/qbytearray.h>
 #include <QtCore/qmetatype.h>
 #if !defined(Q_MOC_OUTPUT_REVISION)
-#error "The header file 'chartwidget.h' doesn't include <QObject>."
+#error "The header file 'mqttwidget.h' doesn't include <QObject>."
 #elif Q_MOC_OUTPUT_REVISION != 67
 #error "This file was generated using the moc from 5.15.2. It"
 #error "cannot be used with the include files from this version of Qt."
@@ -21,25 +21,25 @@
 QT_BEGIN_MOC_NAMESPACE
 QT_WARNING_PUSH
 QT_WARNING_DISABLE_DEPRECATED
-struct qt_meta_stringdata_ChartWidget_t {
+struct qt_meta_stringdata_MqttWidget_t {
     QByteArrayData data[1];
-    char stringdata0[12];
+    char stringdata0[11];
 };
 #define QT_MOC_LITERAL(idx, ofs, len) \
     Q_STATIC_BYTE_ARRAY_DATA_HEADER_INITIALIZER_WITH_OFFSET(len, \
-    qptrdiff(offsetof(qt_meta_stringdata_ChartWidget_t, stringdata0) + ofs \
+    qptrdiff(offsetof(qt_meta_stringdata_MqttWidget_t, stringdata0) + ofs \
         - idx * sizeof(QByteArrayData)) \
     )
-static const qt_meta_stringdata_ChartWidget_t qt_meta_stringdata_ChartWidget = {
+static const qt_meta_stringdata_MqttWidget_t qt_meta_stringdata_MqttWidget = {
     {
-QT_MOC_LITERAL(0, 0, 11) // "ChartWidget"
+QT_MOC_LITERAL(0, 0, 10) // "MqttWidget"
 
     },
-    "ChartWidget"
+    "MqttWidget"
 };
 #undef QT_MOC_LITERAL
 
-static const uint qt_meta_data_ChartWidget[] = {
+static const uint qt_meta_data_MqttWidget[] = {
 
  // content:
        8,       // revision
@@ -55,7 +55,7 @@ static const uint qt_meta_data_ChartWidget[] = {
        0        // eod
 };
 
-void ChartWidget::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _id, void **_a)
+void MqttWidget::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _id, void **_a)
 {
     Q_UNUSED(_o);
     Q_UNUSED(_id);
@@ -63,32 +63,32 @@ void ChartWidget::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _id,
     Q_UNUSED(_a);
 }
 
-QT_INIT_METAOBJECT const QMetaObject ChartWidget::staticMetaObject = { {
-    QMetaObject::SuperData::link<MqttWidget::staticMetaObject>(),
-    qt_meta_stringdata_ChartWidget.data,
-    qt_meta_data_ChartWidget,
+QT_INIT_METAOBJECT const QMetaObject MqttWidget::staticMetaObject = { {
+    QMetaObject::SuperData::link<QChartView::staticMetaObject>(),
+    qt_meta_stringdata_MqttWidget.data,
+    qt_meta_data_MqttWidget,
     qt_static_metacall,
     nullptr,
     nullptr
 } };
 
 
-const QMetaObject *ChartWidget::metaObject() const
+const QMetaObject *MqttWidget::metaObject() const
 {
     return QObject::d_ptr->metaObject ? QObject::d_ptr->dynamicMetaObject() : &staticMetaObject;
 }
 
-void *ChartWidget::qt_metacast(const char *_clname)
+void *MqttWidget::qt_metacast(const char *_clname)
 {
     if (!_clname) return nullptr;
-    if (!strcmp(_clname, qt_meta_stringdata_ChartWidget.stringdata0))
+    if (!strcmp(_clname, qt_meta_stringdata_MqttWidget.stringdata0))
         return static_cast<void*>(this);
-    return MqttWidget::qt_metacast(_clname);
+    return QChartView::qt_metacast(_clname);
 }
 
-int ChartWidget::qt_metacall(QMetaObject::Call _c, int _id, void **_a)
+int MqttWidget::qt_metacall(QMetaObject::Call _c, int _id, void **_a)
 {
-    _id = MqttWidget::qt_metacall(_c, _id, _a);
+    _id = QChartView::qt_metacall(_c, _id, _a);
     return _id;
 }
 QT_WARNING_POP

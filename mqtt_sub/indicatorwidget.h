@@ -3,6 +3,7 @@
 
 #include <QWidget>
 #include <QPainter>
+#include "mqttwidget.h"
 
 namespace Ui {
 class IndicatorWidget;

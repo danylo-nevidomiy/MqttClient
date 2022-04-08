@@ -10,12 +10,14 @@
 #define UI_MAINWINDOW_H
 
 #include <QtCore/QVariant>
+#include <QtWidgets/QAction>
 #include <QtWidgets/QApplication>
 #include <QtWidgets/QFormLayout>
 #include <QtWidgets/QGridLayout>
 #include <QtWidgets/QLabel>
 #include <QtWidgets/QLineEdit>
 #include <QtWidgets/QMainWindow>
+#include <QtWidgets/QMenu>
 #include <QtWidgets/QMenuBar>
 #include <QtWidgets/QPushButton>
 #include <QtWidgets/QScrollArea>
@@ -28,6 +30,7 @@ QT_BEGIN_NAMESPACE
 class Ui_MainWindow
 {
 public:
+    QAction *actionAdd;
     QWidget *centralwidget;
     QVBoxLayout *verticalLayout;
     QWidget *toolsWidget;
@@ -43,6 +46,8 @@ public:
     QWidget *gridLayoutWidget;
     QGridLayout *gridLayout;
     QMenuBar *menubar;
+    QMenu *menuFile;
+    QMenu *menuEdit;
     QStatusBar *statusbar;
 
     void setupUi(QMainWindow *MainWindow)
@@ -50,11 +55,8 @@ public:
         if (MainWindow->objectName().isEmpty())
             MainWindow->setObjectName(QString::fromUtf8("MainWindow"));
         MainWindow->resize(808, 599);
-        QSizePolicy sizePolicy(QSizePolicy::MinimumExpanding, QSizePolicy::MinimumExpanding);
-        sizePolicy.setHorizontalStretch(0);
-        sizePolicy.setVerticalStretch(0);
-        sizePolicy.setHeightForWidth(MainWindow->sizePolicy().hasHeightForWidth());
-        MainWindow->setSizePolicy(sizePolicy);
+        actionAdd = new QAction(MainWindow);
+        actionAdd->setObjectName(QString::fromUtf8("actionAdd"));
         centralwidget = new QWidget(MainWindow);
         centralwidget->setObjectName(QString::fromUtf8("centralwidget"));
         verticalLayout = new QVBoxLayout(centralwidget);
@@ -62,11 +64,11 @@ public:
         verticalLayout->setContentsMargins(0, 0, 0, -1);
         toolsWidget = new QWidget(centralwidget);
         toolsWidget->setObjectName(QString::fromUtf8("toolsWidget"));
-        QSizePolicy sizePolicy1(QSizePolicy::Preferred, QSizePolicy::Fixed);
-        sizePolicy1.setHorizontalStretch(0);
-        sizePolicy1.setVerticalStretch(0);
-        sizePolicy1.setHeightForWidth(toolsWidget->sizePolicy().hasHeightForWidth());
-        toolsWidget->setSizePolicy(sizePolicy1);
+        QSizePolicy sizePolicy(QSizePolicy::Preferred, QSizePolicy::Fixed);
+        sizePolicy.setHorizontalStretch(0);
+        sizePolicy.setVerticalStretch(0);
+        sizePolicy.setHeightForWidth(toolsWidget->sizePolicy().hasHeightForWidth());
+        toolsWidget->setSizePolicy(sizePolicy);
         formLayout = new QFormLayout(toolsWidget);
         formLayout->setObjectName(QString::fromUtf8("formLayout"));
         pushButton_sub = new QPushButton(toolsWidget);
@@ -106,14 +108,17 @@ public:
 
         scrollArea = new QScrollArea(centralwidget);
         scrollArea->setObjectName(QString::fromUtf8("scrollArea"));
-        sizePolicy.setHeightForWidth(scrollArea->sizePolicy().hasHeightForWidth());
-        scrollArea->setSizePolicy(sizePolicy);
+        QSizePolicy sizePolicy1(QSizePolicy::MinimumExpanding, QSizePolicy::MinimumExpanding);
+        sizePolicy1.setHorizontalStretch(0);
+        sizePolicy1.setVerticalStretch(0);
+        sizePolicy1.setHeightForWidth(scrollArea->sizePolicy().hasHeightForWidth());
+        scrollArea->setSizePolicy(sizePolicy1);
         scrollArea->setWidgetResizable(true);
         scrollAreaWidgetContents_2 = new QWidget();
         scrollAreaWidgetContents_2->setObjectName(QString::fromUtf8("scrollAreaWidgetContents_2"));
         scrollAreaWidgetContents_2->setGeometry(QRect(0, 0, 806, 444));
-        sizePolicy.setHeightForWidth(scrollAreaWidgetContents_2->sizePolicy().hasHeightForWidth());
-        scrollAreaWidgetContents_2->setSizePolicy(sizePolicy);
+        sizePolicy1.setHeightForWidth(scrollAreaWidgetContents_2->sizePolicy().hasHeightForWidth());
+        scrollAreaWidgetContents_2->setSizePolicy(sizePolicy1);
         gridLayoutWidget = new QWidget(scrollAreaWidgetContents_2);
         gridLayoutWidget->setObjectName(QString::fromUtf8("gridLayoutWidget"));
         gridLayoutWidget->setGeometry(QRect(219, 139, 161, 81));
@@ -129,10 +134,18 @@ public:
         menubar = new QMenuBar(MainWindow);
         menubar->setObjectName(QString::fromUtf8("menubar"));
         menubar->setGeometry(QRect(0, 0, 808, 23));
+        menuFile = new QMenu(menubar);
+        menuFile->setObjectName(QString::fromUtf8("menuFile"));
+        menuEdit = new QMenu(menubar);
+        menuEdit->setObjectName(QString::fromUtf8("menuEdit"));
         MainWindow->setMenuBar(menubar);
         statusbar = new QStatusBar(MainWindow);
         statusbar->setObjectName(QString::fromUtf8("statusbar"));
         MainWindow->setStatusBar(statusbar);
+
+        menubar->addAction(menuFile->menuAction());
+        menubar->addAction(menuEdit->menuAction());
+        menuEdit->addAction(actionAdd);
 
         retranslateUi(MainWindow);
 
@@ -142,11 +155,14 @@ public:
     void retranslateUi(QMainWindow *MainWindow)
     {
         MainWindow->setWindowTitle(QCoreApplication::translate("MainWindow", "MainWindow", nullptr));
+        actionAdd->setText(QCoreApplication::translate("MainWindow", "Add..", nullptr));
         pushButton_sub->setText(QCoreApplication::translate("MainWindow", "sub", nullptr));
         messageLabel->setText(QCoreApplication::translate("MainWindow", "Message:", nullptr));
         messageText->setText(QCoreApplication::translate("MainWindow", "TextLabel", nullptr));
         sliderText->setText(QCoreApplication::translate("MainWindow", "Slider:", nullptr));
         sliderValue->setText(QCoreApplication::translate("MainWindow", "Value", nullptr));
+        menuFile->setTitle(QCoreApplication::translate("MainWindow", "File", nullptr));
+        menuEdit->setTitle(QCoreApplication::translate("MainWindow", "Edit", nullptr));
     } // retranslateUi
 
 };

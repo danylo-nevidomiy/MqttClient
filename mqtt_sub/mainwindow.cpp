@@ -12,6 +12,7 @@ MainWindow::MainWindow(QWidget *parent)
 {
 
     ui->setupUi(this);
+    indicator = new IndicatorWidget(ui->scrollAreaWidgetContents_2);
     widget = new IndicatorWidget(ui->scrollAreaWidgetContents_2);
     chart = new ChartWidget(ui->scrollAreaWidgetContents_2);
 
@@ -22,13 +23,14 @@ MainWindow::MainWindow(QWidget *parent)
     //    ui->scrollArea->setGeometry( 0, 0, 1000, 1000 );
     //    ui->scrollArea->setWidget(ui->scrollAreaWidgetContents);
 
-    auto p = ui->scrollAreaWidgetContents_2->palette();
-    p.setColor(ui->scrollAreaWidgetContents_2->backgroundRole(), Qt::red);
-    ui->scrollAreaWidgetContents_2->setPalette(p);
+//    auto p = ui->scrollAreaWidgetContents_2->palette();
+//    p.setColor(ui->scrollAreaWidgetContents_2->backgroundRole(), Qt::red);
+//    ui->scrollAreaWidgetContents_2->setPalette(p);
 
-ui->gridLayout = new QGridLayout(ui->scrollAreaWidgetContents_2);
+    ui->gridLayout = new QGridLayout(ui->scrollAreaWidgetContents_2);
     ui->gridLayout->addWidget(widget);
     ui->gridLayout->addWidget(chart);
+    ui->gridLayout->addWidget(indicator, 0,1);
     //    ui->scrollAreaWidgetContents->setWidgetResizable(true);
     cli = new QMqttClient();
     //    chart->move(400, 200);
@@ -89,6 +91,31 @@ void MainWindow::on_pushButton_sub_clicked()
     //        return;
     //    }
     qDebug() << "subscription = " << subscription;
+}
+void MainWindow::on_actionAdd_triggered()
+{
+    awd = new AddWidgetDialog();
+    connect(awd, SIGNAL(AddWidget(QString)), this, SLOT(AddWidget(QString)));
+    awd->show();
+}
+
+void MainWindow::AddWidget(QString type)
+{
+    qDebug() << "Adding...";
+    if(QString::compare(type, QString::fromStdString("Indicator")) == 0)
+    {
+        IndicatorWidget *i = new IndicatorWidget();
+
+        ui->gridLayout->addWidget(i);
+    }else if(QString::compare(type, QString::fromStdString("Chart")) == 0)
+    {
+        ChartWidget *c = new ChartWidget();
+
+        ui->gridLayout->addWidget(c);
+
+    }
+//    ui->gridLayoutWidget->repaint();
+//    ui->scrollAreaWidgetContents_2->repaint();
 }
 void MainWindow::sliderSubscription()
 {

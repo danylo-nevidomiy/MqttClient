@@ -52,30 +52,42 @@ OBJECTS_DIR   = .obj/
 
 ####### Files
 
-SOURCES       = ../mqtt_sub/chartwidget.cpp \
+SOURCES       = ../mqtt_sub/addwidgetdialog.cpp \
+		../mqtt_sub/chartwidget.cpp \
 		../mqtt_sub/indicatorwidget.cpp \
 		../mqtt_sub/main.cpp \
-		../mqtt_sub/mainwindow.cpp .moc/moc_chartwidget.cpp \
+		../mqtt_sub/mainwindow.cpp \
+		../mqtt_sub/mqttwidget.cpp .moc/moc_addwidgetdialog.cpp \
+		.moc/moc_chartwidget.cpp \
 		.moc/moc_indicatorwidget.cpp \
-		.moc/moc_mainwindow.cpp
-OBJECTS       = .obj/chartwidget.o \
+		.moc/moc_mainwindow.cpp \
+		.moc/moc_mqttwidget.cpp
+OBJECTS       = .obj/addwidgetdialog.o \
+		.obj/chartwidget.o \
 		.obj/indicatorwidget.o \
 		.obj/main.o \
 		.obj/mainwindow.o \
+		.obj/mqttwidget.o \
+		.obj/moc_addwidgetdialog.o \
 		.obj/moc_chartwidget.o \
 		.obj/moc_indicatorwidget.o \
-		.obj/moc_mainwindow.o
+		.obj/moc_mainwindow.o \
+		.obj/moc_mqttwidget.o
 DIST          = ../../../mkspecs/modules-inst/qt_lib_mqtt.pri \
 		../../../mkspecs/modules-inst/qt_lib_mqtt_private.pri \
 		../../../mkspecs/modules/qt_lib_mqtt.pri \
 		../../../.qmake.conf \
 		../../../.qmake.stash \
-		../mqtt_sub/mqtt_sub.pro ../mqtt_sub/chartwidget.h \
+		../mqtt_sub/mqtt_sub.pro ../mqtt_sub/addwidgetdialog.h \
+		../mqtt_sub/chartwidget.h \
 		../mqtt_sub/indicatorwidget.h \
-		../mqtt_sub/mainwindow.h ../mqtt_sub/chartwidget.cpp \
+		../mqtt_sub/mainwindow.h \
+		../mqtt_sub/mqttwidget.h ../mqtt_sub/addwidgetdialog.cpp \
+		../mqtt_sub/chartwidget.cpp \
 		../mqtt_sub/indicatorwidget.cpp \
 		../mqtt_sub/main.cpp \
-		../mqtt_sub/mainwindow.cpp
+		../mqtt_sub/mainwindow.cpp \
+		../mqtt_sub/mqttwidget.cpp
 QMAKE_TARGET  = mqtt_sub
 DESTDIR       = 
 TARGET        = mqtt_sub
@@ -84,7 +96,7 @@ TARGET        = mqtt_sub
 first: all
 ####### Build rules
 
-mqtt_sub: .uic/ui_chartwidget.h .uic/ui_indicatorwidget.h .uic/ui_mainwindow.h $(OBJECTS)  
+mqtt_sub: .uic/ui_addwidgetdialog.h .uic/ui_chartwidget.h .uic/ui_indicatorwidget.h .uic/ui_mainwindow.h $(OBJECTS)  
 	$(LINK) $(LFLAGS) -o $(TARGET) $(OBJECTS) $(OBJCOMP) $(LIBS)
 
 Makefile: ../mqtt_sub/mqtt_sub.pro ../../../.qmake.conf ../../../.qmake.cache /home/daniil/Qt/5.15.2/gcc_64/mkspecs/linux-g++/qmake.conf /home/daniil/Qt/5.15.2/gcc_64/mkspecs/features/spec_pre.prf \
@@ -553,9 +565,9 @@ distdir: FORCE
 	@test -d $(DISTDIR) || mkdir -p $(DISTDIR)
 	$(COPY_FILE) --parents $(DIST) $(DISTDIR)/
 	$(COPY_FILE) --parents /home/daniil/Qt/5.15.2/gcc_64/mkspecs/features/data/dummy.cpp $(DISTDIR)/
-	$(COPY_FILE) --parents ../mqtt_sub/chartwidget.h ../mqtt_sub/indicatorwidget.h ../mqtt_sub/mainwindow.h $(DISTDIR)/
-	$(COPY_FILE) --parents ../mqtt_sub/chartwidget.cpp ../mqtt_sub/indicatorwidget.cpp ../mqtt_sub/main.cpp ../mqtt_sub/mainwindow.cpp $(DISTDIR)/
-	$(COPY_FILE) --parents ../mqtt_sub/chartwidget.ui ../mqtt_sub/indicatorwidget.ui ../mqtt_sub/mainwindow.ui $(DISTDIR)/
+	$(COPY_FILE) --parents ../mqtt_sub/addwidgetdialog.h ../mqtt_sub/chartwidget.h ../mqtt_sub/indicatorwidget.h ../mqtt_sub/mainwindow.h ../mqtt_sub/mqttwidget.h $(DISTDIR)/
+	$(COPY_FILE) --parents ../mqtt_sub/addwidgetdialog.cpp ../mqtt_sub/chartwidget.cpp ../mqtt_sub/indicatorwidget.cpp ../mqtt_sub/main.cpp ../mqtt_sub/mainwindow.cpp ../mqtt_sub/mqttwidget.cpp $(DISTDIR)/
+	$(COPY_FILE) --parents ../mqtt_sub/addwidgetdialog.ui ../mqtt_sub/chartwidget.ui ../mqtt_sub/indicatorwidget.ui ../mqtt_sub/mainwindow.ui $(DISTDIR)/
 
 
 clean: compiler_clean 
@@ -612,9 +624,118 @@ compiler_moc_predefs_clean:
 .moc/moc_predefs.h: /home/daniil/Qt/5.15.2/gcc_64/mkspecs/features/data/dummy.cpp
 	g++ -pipe -g -std=gnu++11 -fno-exceptions -Wall -Wextra -dM -E -o .moc/moc_predefs.h /home/daniil/Qt/5.15.2/gcc_64/mkspecs/features/data/dummy.cpp
 
-compiler_moc_header_make_all: .moc/moc_chartwidget.cpp .moc/moc_indicatorwidget.cpp .moc/moc_mainwindow.cpp
+compiler_moc_header_make_all: .moc/moc_addwidgetdialog.cpp .moc/moc_chartwidget.cpp .moc/moc_indicatorwidget.cpp .moc/moc_mainwindow.cpp .moc/moc_mqttwidget.cpp
 compiler_moc_header_clean:
-	-$(DEL_FILE) .moc/moc_chartwidget.cpp .moc/moc_indicatorwidget.cpp .moc/moc_mainwindow.cpp
+	-$(DEL_FILE) .moc/moc_addwidgetdialog.cpp .moc/moc_chartwidget.cpp .moc/moc_indicatorwidget.cpp .moc/moc_mainwindow.cpp .moc/moc_mqttwidget.cpp
+.moc/moc_addwidgetdialog.cpp: ../mqtt_sub/addwidgetdialog.h \
+		/home/daniil/Qt/5.15.2/gcc_64/include/QtWidgets/QDialog \
+		/home/daniil/Qt/5.15.2/gcc_64/include/QtWidgets/qdialog.h \
+		/home/daniil/Qt/5.15.2/gcc_64/include/QtWidgets/qtwidgetsglobal.h \
+		/home/daniil/Qt/5.15.2/gcc_64/include/QtGui/qtguiglobal.h \
+		/home/daniil/Qt/5.15.2/gcc_64/include/QtCore/qglobal.h \
+		/home/daniil/Qt/5.15.2/gcc_64/include/QtCore/qconfig-bootstrapped.h \
+		/home/daniil/Qt/5.15.2/gcc_64/include/QtCore/qconfig.h \
+		/home/daniil/Qt/5.15.2/gcc_64/include/QtCore/qtcore-config.h \
+		/home/daniil/Qt/5.15.2/gcc_64/include/QtCore/qsystemdetection.h \
+		/home/daniil/Qt/5.15.2/gcc_64/include/QtCore/qprocessordetection.h \
+		/home/daniil/Qt/5.15.2/gcc_64/include/QtCore/qcompilerdetection.h \
+		/home/daniil/Qt/5.15.2/gcc_64/include/QtCore/qtypeinfo.h \
+		/home/daniil/Qt/5.15.2/gcc_64/include/QtCore/qsysinfo.h \
+		/home/daniil/Qt/5.15.2/gcc_64/include/QtCore/qlogging.h \
+		/home/daniil/Qt/5.15.2/gcc_64/include/QtCore/qflags.h \
+		/home/daniil/Qt/5.15.2/gcc_64/include/QtCore/qatomic.h \
+		/home/daniil/Qt/5.15.2/gcc_64/include/QtCore/qbasicatomic.h \
+		/home/daniil/Qt/5.15.2/gcc_64/include/QtCore/qatomic_bootstrap.h \
+		/home/daniil/Qt/5.15.2/gcc_64/include/QtCore/qgenericatomic.h \
+		/home/daniil/Qt/5.15.2/gcc_64/include/QtCore/qatomic_cxx11.h \
+		/home/daniil/Qt/5.15.2/gcc_64/include/QtCore/qatomic_msvc.h \
+		/home/daniil/Qt/5.15.2/gcc_64/include/QtCore/qglobalstatic.h \
+		/home/daniil/Qt/5.15.2/gcc_64/include/QtCore/qmutex.h \
+		/home/daniil/Qt/5.15.2/gcc_64/include/QtCore/qnumeric.h \
+		/home/daniil/Qt/5.15.2/gcc_64/include/QtCore/qversiontagging.h \
+		/home/daniil/Qt/5.15.2/gcc_64/include/QtGui/qtgui-config.h \
+		/home/daniil/Qt/5.15.2/gcc_64/include/QtWidgets/qtwidgets-config.h \
+		/home/daniil/Qt/5.15.2/gcc_64/include/QtWidgets/qwidget.h \
+		/home/daniil/Qt/5.15.2/gcc_64/include/QtGui/qwindowdefs.h \
+		/home/daniil/Qt/5.15.2/gcc_64/include/QtCore/qobjectdefs.h \
+		/home/daniil/Qt/5.15.2/gcc_64/include/QtCore/qnamespace.h \
+		/home/daniil/Qt/5.15.2/gcc_64/include/QtCore/qobjectdefs_impl.h \
+		/home/daniil/Qt/5.15.2/gcc_64/include/QtGui/qwindowdefs_win.h \
+		/home/daniil/Qt/5.15.2/gcc_64/include/QtCore/qobject.h \
+		/home/daniil/Qt/5.15.2/gcc_64/include/QtCore/qstring.h \
+		/home/daniil/Qt/5.15.2/gcc_64/include/QtCore/qchar.h \
+		/home/daniil/Qt/5.15.2/gcc_64/include/QtCore/qbytearray.h \
+		/home/daniil/Qt/5.15.2/gcc_64/include/QtCore/qrefcount.h \
+		/home/daniil/Qt/5.15.2/gcc_64/include/QtCore/qarraydata.h \
+		/home/daniil/Qt/5.15.2/gcc_64/include/QtCore/qstringliteral.h \
+		/home/daniil/Qt/5.15.2/gcc_64/include/QtCore/qstringalgorithms.h \
+		/home/daniil/Qt/5.15.2/gcc_64/include/QtCore/qstringview.h \
+		/home/daniil/Qt/5.15.2/gcc_64/include/QtCore/qstringbuilder.h \
+		/home/daniil/Qt/5.15.2/gcc_64/include/QtCore/qlist.h \
+		/home/daniil/Qt/5.15.2/gcc_64/include/QtCore/qalgorithms.h \
+		/home/daniil/Qt/5.15.2/gcc_64/include/QtCore/qiterator.h \
+		/home/daniil/Qt/5.15.2/gcc_64/include/QtCore/qhashfunctions.h \
+		/home/daniil/Qt/5.15.2/gcc_64/include/QtCore/qpair.h \
+		/home/daniil/Qt/5.15.2/gcc_64/include/QtCore/qvector.h \
+		/home/daniil/Qt/5.15.2/gcc_64/include/QtCore/qcontainertools_impl.h \
+		/home/daniil/Qt/5.15.2/gcc_64/include/QtCore/qpoint.h \
+		/home/daniil/Qt/5.15.2/gcc_64/include/QtCore/qbytearraylist.h \
+		/home/daniil/Qt/5.15.2/gcc_64/include/QtCore/qstringlist.h \
+		/home/daniil/Qt/5.15.2/gcc_64/include/QtCore/qregexp.h \
+		/home/daniil/Qt/5.15.2/gcc_64/include/QtCore/qstringmatcher.h \
+		/home/daniil/Qt/5.15.2/gcc_64/include/QtCore/qcoreevent.h \
+		/home/daniil/Qt/5.15.2/gcc_64/include/QtCore/qscopedpointer.h \
+		/home/daniil/Qt/5.15.2/gcc_64/include/QtCore/qmetatype.h \
+		/home/daniil/Qt/5.15.2/gcc_64/include/QtCore/qvarlengtharray.h \
+		/home/daniil/Qt/5.15.2/gcc_64/include/QtCore/qcontainerfwd.h \
+		/home/daniil/Qt/5.15.2/gcc_64/include/QtCore/qobject_impl.h \
+		/home/daniil/Qt/5.15.2/gcc_64/include/QtCore/qmargins.h \
+		/home/daniil/Qt/5.15.2/gcc_64/include/QtGui/qpaintdevice.h \
+		/home/daniil/Qt/5.15.2/gcc_64/include/QtCore/qrect.h \
+		/home/daniil/Qt/5.15.2/gcc_64/include/QtCore/qsize.h \
+		/home/daniil/Qt/5.15.2/gcc_64/include/QtGui/qpalette.h \
+		/home/daniil/Qt/5.15.2/gcc_64/include/QtGui/qcolor.h \
+		/home/daniil/Qt/5.15.2/gcc_64/include/QtGui/qrgb.h \
+		/home/daniil/Qt/5.15.2/gcc_64/include/QtGui/qrgba64.h \
+		/home/daniil/Qt/5.15.2/gcc_64/include/QtGui/qbrush.h \
+		/home/daniil/Qt/5.15.2/gcc_64/include/QtGui/qmatrix.h \
+		/home/daniil/Qt/5.15.2/gcc_64/include/QtGui/qpolygon.h \
+		/home/daniil/Qt/5.15.2/gcc_64/include/QtGui/qregion.h \
+		/home/daniil/Qt/5.15.2/gcc_64/include/QtCore/qdatastream.h \
+		/home/daniil/Qt/5.15.2/gcc_64/include/QtCore/qiodevice.h \
+		/home/daniil/Qt/5.15.2/gcc_64/include/QtCore/qline.h \
+		/home/daniil/Qt/5.15.2/gcc_64/include/QtGui/qtransform.h \
+		/home/daniil/Qt/5.15.2/gcc_64/include/QtGui/qimage.h \
+		/home/daniil/Qt/5.15.2/gcc_64/include/QtGui/qpixelformat.h \
+		/home/daniil/Qt/5.15.2/gcc_64/include/QtGui/qpixmap.h \
+		/home/daniil/Qt/5.15.2/gcc_64/include/QtCore/qsharedpointer.h \
+		/home/daniil/Qt/5.15.2/gcc_64/include/QtCore/qshareddata.h \
+		/home/daniil/Qt/5.15.2/gcc_64/include/QtCore/qhash.h \
+		/home/daniil/Qt/5.15.2/gcc_64/include/QtCore/qsharedpointer_impl.h \
+		/home/daniil/Qt/5.15.2/gcc_64/include/QtGui/qfont.h \
+		/home/daniil/Qt/5.15.2/gcc_64/include/QtGui/qfontmetrics.h \
+		/home/daniil/Qt/5.15.2/gcc_64/include/QtGui/qfontinfo.h \
+		/home/daniil/Qt/5.15.2/gcc_64/include/QtWidgets/qsizepolicy.h \
+		/home/daniil/Qt/5.15.2/gcc_64/include/QtGui/qcursor.h \
+		/home/daniil/Qt/5.15.2/gcc_64/include/QtGui/qkeysequence.h \
+		/home/daniil/Qt/5.15.2/gcc_64/include/QtGui/qevent.h \
+		/home/daniil/Qt/5.15.2/gcc_64/include/QtCore/qvariant.h \
+		/home/daniil/Qt/5.15.2/gcc_64/include/QtCore/qmap.h \
+		/home/daniil/Qt/5.15.2/gcc_64/include/QtCore/qdebug.h \
+		/home/daniil/Qt/5.15.2/gcc_64/include/QtCore/qtextstream.h \
+		/home/daniil/Qt/5.15.2/gcc_64/include/QtCore/qlocale.h \
+		/home/daniil/Qt/5.15.2/gcc_64/include/QtCore/qset.h \
+		/home/daniil/Qt/5.15.2/gcc_64/include/QtCore/qcontiguouscache.h \
+		/home/daniil/Qt/5.15.2/gcc_64/include/QtCore/qurl.h \
+		/home/daniil/Qt/5.15.2/gcc_64/include/QtCore/qurlquery.h \
+		/home/daniil/Qt/5.15.2/gcc_64/include/QtCore/qfile.h \
+		/home/daniil/Qt/5.15.2/gcc_64/include/QtCore/qfiledevice.h \
+		/home/daniil/Qt/5.15.2/gcc_64/include/QtGui/qvector2d.h \
+		/home/daniil/Qt/5.15.2/gcc_64/include/QtGui/qtouchdevice.h \
+		.moc/moc_predefs.h \
+		/home/daniil/Qt/5.15.2/gcc_64/bin/moc
+	/home/daniil/Qt/5.15.2/gcc_64/bin/moc $(DEFINES) --include /home/daniil/Repositories/qtmqtt/examples/mqtt/build-mqtt_sub-Qt_5_15_2_gcc_64-Debug/.moc/moc_predefs.h -I/home/daniil/Qt/5.15.2/gcc_64/mkspecs/linux-g++ -I/home/daniil/Repositories/qtmqtt/examples/mqtt/mqtt_sub -I/home/daniil/Repositories/qtmqtt/include -I/home/daniil/Repositories/qtmqtt/include/QtMqtt -I/home/daniil/Qt/5.15.2/gcc_64/include -I/home/daniil/Qt/5.15.2/gcc_64/include/QtCharts -I/home/daniil/Qt/5.15.2/gcc_64/include/QtWidgets -I/home/daniil/Qt/5.15.2/gcc_64/include/QtGui -I/home/daniil/Qt/5.15.2/gcc_64/include/QtNetwork -I/home/daniil/Qt/5.15.2/gcc_64/include/QtCore -I. -I/usr/include/c++/10 -I/usr/include/x86_64-linux-gnu/c++/10 -I/usr/include/c++/10/backward -I/usr/lib/gcc/x86_64-linux-gnu/10/include -I/usr/local/include -I/usr/include/x86_64-linux-gnu -I/usr/include ../mqtt_sub/addwidgetdialog.h -o .moc/moc_addwidgetdialog.cpp
+
 .moc/moc_chartwidget.cpp: ../mqtt_sub/chartwidget.h \
 		/home/daniil/Qt/5.15.2/gcc_64/include/QtWidgets/QWidget \
 		/home/daniil/Qt/5.15.2/gcc_64/include/QtWidgets/qwidget.h \
@@ -1885,17 +2006,163 @@ compiler_moc_header_clean:
 		/home/daniil/Qt/5.15.2/gcc_64/include/QtCharts/qvxymodelmapper.h \
 		/home/daniil/Qt/5.15.2/gcc_64/include/QtCharts/qxylegendmarker.h \
 		/home/daniil/Qt/5.15.2/gcc_64/include/QtCharts/qtchartsversion.h \
+		../mqtt_sub/addwidgetdialog.h \
+		/home/daniil/Qt/5.15.2/gcc_64/include/QtWidgets/QDialog \
 		.moc/moc_predefs.h \
 		/home/daniil/Qt/5.15.2/gcc_64/bin/moc
 	/home/daniil/Qt/5.15.2/gcc_64/bin/moc $(DEFINES) --include /home/daniil/Repositories/qtmqtt/examples/mqtt/build-mqtt_sub-Qt_5_15_2_gcc_64-Debug/.moc/moc_predefs.h -I/home/daniil/Qt/5.15.2/gcc_64/mkspecs/linux-g++ -I/home/daniil/Repositories/qtmqtt/examples/mqtt/mqtt_sub -I/home/daniil/Repositories/qtmqtt/include -I/home/daniil/Repositories/qtmqtt/include/QtMqtt -I/home/daniil/Qt/5.15.2/gcc_64/include -I/home/daniil/Qt/5.15.2/gcc_64/include/QtCharts -I/home/daniil/Qt/5.15.2/gcc_64/include/QtWidgets -I/home/daniil/Qt/5.15.2/gcc_64/include/QtGui -I/home/daniil/Qt/5.15.2/gcc_64/include/QtNetwork -I/home/daniil/Qt/5.15.2/gcc_64/include/QtCore -I. -I/usr/include/c++/10 -I/usr/include/x86_64-linux-gnu/c++/10 -I/usr/include/c++/10/backward -I/usr/lib/gcc/x86_64-linux-gnu/10/include -I/usr/local/include -I/usr/include/x86_64-linux-gnu -I/usr/include ../mqtt_sub/mainwindow.h -o .moc/moc_mainwindow.cpp
+
+.moc/moc_mqttwidget.cpp: ../mqtt_sub/mqttwidget.h \
+		/home/daniil/Qt/5.15.2/gcc_64/include/QtCharts/QChartView \
+		/home/daniil/Qt/5.15.2/gcc_64/include/QtCharts/qchartview.h \
+		/home/daniil/Qt/5.15.2/gcc_64/include/QtCharts/QAbstractAxis \
+		/home/daniil/Qt/5.15.2/gcc_64/include/QtCharts/qabstractaxis.h \
+		/home/daniil/Qt/5.15.2/gcc_64/include/QtCharts/QChartGlobal \
+		/home/daniil/Qt/5.15.2/gcc_64/include/QtCharts/qchartglobal.h \
+		/home/daniil/Qt/5.15.2/gcc_64/include/QtCore/QtGlobal \
+		/home/daniil/Qt/5.15.2/gcc_64/include/QtCore/qglobal.h \
+		/home/daniil/Qt/5.15.2/gcc_64/include/QtCore/qconfig-bootstrapped.h \
+		/home/daniil/Qt/5.15.2/gcc_64/include/QtCore/qconfig.h \
+		/home/daniil/Qt/5.15.2/gcc_64/include/QtCore/qtcore-config.h \
+		/home/daniil/Qt/5.15.2/gcc_64/include/QtCore/qsystemdetection.h \
+		/home/daniil/Qt/5.15.2/gcc_64/include/QtCore/qprocessordetection.h \
+		/home/daniil/Qt/5.15.2/gcc_64/include/QtCore/qcompilerdetection.h \
+		/home/daniil/Qt/5.15.2/gcc_64/include/QtCore/qtypeinfo.h \
+		/home/daniil/Qt/5.15.2/gcc_64/include/QtCore/qsysinfo.h \
+		/home/daniil/Qt/5.15.2/gcc_64/include/QtCore/qlogging.h \
+		/home/daniil/Qt/5.15.2/gcc_64/include/QtCore/qflags.h \
+		/home/daniil/Qt/5.15.2/gcc_64/include/QtCore/qatomic.h \
+		/home/daniil/Qt/5.15.2/gcc_64/include/QtCore/qbasicatomic.h \
+		/home/daniil/Qt/5.15.2/gcc_64/include/QtCore/qatomic_bootstrap.h \
+		/home/daniil/Qt/5.15.2/gcc_64/include/QtCore/qgenericatomic.h \
+		/home/daniil/Qt/5.15.2/gcc_64/include/QtCore/qatomic_cxx11.h \
+		/home/daniil/Qt/5.15.2/gcc_64/include/QtCore/qatomic_msvc.h \
+		/home/daniil/Qt/5.15.2/gcc_64/include/QtCore/qglobalstatic.h \
+		/home/daniil/Qt/5.15.2/gcc_64/include/QtCore/qmutex.h \
+		/home/daniil/Qt/5.15.2/gcc_64/include/QtCore/qnumeric.h \
+		/home/daniil/Qt/5.15.2/gcc_64/include/QtCore/qversiontagging.h \
+		/home/daniil/Qt/5.15.2/gcc_64/include/QtGui/QPen \
+		/home/daniil/Qt/5.15.2/gcc_64/include/QtGui/qpen.h \
+		/home/daniil/Qt/5.15.2/gcc_64/include/QtGui/qtguiglobal.h \
+		/home/daniil/Qt/5.15.2/gcc_64/include/QtGui/qtgui-config.h \
+		/home/daniil/Qt/5.15.2/gcc_64/include/QtGui/qcolor.h \
+		/home/daniil/Qt/5.15.2/gcc_64/include/QtGui/qrgb.h \
+		/home/daniil/Qt/5.15.2/gcc_64/include/QtCore/qnamespace.h \
+		/home/daniil/Qt/5.15.2/gcc_64/include/QtCore/qstringlist.h \
+		/home/daniil/Qt/5.15.2/gcc_64/include/QtCore/qlist.h \
+		/home/daniil/Qt/5.15.2/gcc_64/include/QtCore/qalgorithms.h \
+		/home/daniil/Qt/5.15.2/gcc_64/include/QtCore/qiterator.h \
+		/home/daniil/Qt/5.15.2/gcc_64/include/QtCore/qrefcount.h \
+		/home/daniil/Qt/5.15.2/gcc_64/include/QtCore/qarraydata.h \
+		/home/daniil/Qt/5.15.2/gcc_64/include/QtCore/qhashfunctions.h \
+		/home/daniil/Qt/5.15.2/gcc_64/include/QtCore/qstring.h \
+		/home/daniil/Qt/5.15.2/gcc_64/include/QtCore/qchar.h \
+		/home/daniil/Qt/5.15.2/gcc_64/include/QtCore/qbytearray.h \
+		/home/daniil/Qt/5.15.2/gcc_64/include/QtCore/qstringliteral.h \
+		/home/daniil/Qt/5.15.2/gcc_64/include/QtCore/qstringalgorithms.h \
+		/home/daniil/Qt/5.15.2/gcc_64/include/QtCore/qstringview.h \
+		/home/daniil/Qt/5.15.2/gcc_64/include/QtCore/qstringbuilder.h \
+		/home/daniil/Qt/5.15.2/gcc_64/include/QtCore/qpair.h \
+		/home/daniil/Qt/5.15.2/gcc_64/include/QtCore/qvector.h \
+		/home/daniil/Qt/5.15.2/gcc_64/include/QtCore/qcontainertools_impl.h \
+		/home/daniil/Qt/5.15.2/gcc_64/include/QtCore/qpoint.h \
+		/home/daniil/Qt/5.15.2/gcc_64/include/QtCore/qbytearraylist.h \
+		/home/daniil/Qt/5.15.2/gcc_64/include/QtCore/qregexp.h \
+		/home/daniil/Qt/5.15.2/gcc_64/include/QtCore/qstringmatcher.h \
+		/home/daniil/Qt/5.15.2/gcc_64/include/QtGui/qrgba64.h \
+		/home/daniil/Qt/5.15.2/gcc_64/include/QtGui/qbrush.h \
+		/home/daniil/Qt/5.15.2/gcc_64/include/QtCore/qscopedpointer.h \
+		/home/daniil/Qt/5.15.2/gcc_64/include/QtGui/qmatrix.h \
+		/home/daniil/Qt/5.15.2/gcc_64/include/QtGui/qpolygon.h \
+		/home/daniil/Qt/5.15.2/gcc_64/include/QtCore/qrect.h \
+		/home/daniil/Qt/5.15.2/gcc_64/include/QtCore/qmargins.h \
+		/home/daniil/Qt/5.15.2/gcc_64/include/QtCore/qsize.h \
+		/home/daniil/Qt/5.15.2/gcc_64/include/QtGui/qregion.h \
+		/home/daniil/Qt/5.15.2/gcc_64/include/QtGui/qwindowdefs.h \
+		/home/daniil/Qt/5.15.2/gcc_64/include/QtCore/qobjectdefs.h \
+		/home/daniil/Qt/5.15.2/gcc_64/include/QtCore/qobjectdefs_impl.h \
+		/home/daniil/Qt/5.15.2/gcc_64/include/QtGui/qwindowdefs_win.h \
+		/home/daniil/Qt/5.15.2/gcc_64/include/QtCore/qdatastream.h \
+		/home/daniil/Qt/5.15.2/gcc_64/include/QtCore/qiodevice.h \
+		/home/daniil/Qt/5.15.2/gcc_64/include/QtCore/qobject.h \
+		/home/daniil/Qt/5.15.2/gcc_64/include/QtCore/qcoreevent.h \
+		/home/daniil/Qt/5.15.2/gcc_64/include/QtCore/qmetatype.h \
+		/home/daniil/Qt/5.15.2/gcc_64/include/QtCore/qvarlengtharray.h \
+		/home/daniil/Qt/5.15.2/gcc_64/include/QtCore/qcontainerfwd.h \
+		/home/daniil/Qt/5.15.2/gcc_64/include/QtCore/qobject_impl.h \
+		/home/daniil/Qt/5.15.2/gcc_64/include/QtCore/qline.h \
+		/home/daniil/Qt/5.15.2/gcc_64/include/QtGui/qtransform.h \
+		/home/daniil/Qt/5.15.2/gcc_64/include/QtGui/qimage.h \
+		/home/daniil/Qt/5.15.2/gcc_64/include/QtGui/qpaintdevice.h \
+		/home/daniil/Qt/5.15.2/gcc_64/include/QtGui/qpixelformat.h \
+		/home/daniil/Qt/5.15.2/gcc_64/include/QtGui/qpixmap.h \
+		/home/daniil/Qt/5.15.2/gcc_64/include/QtCore/qsharedpointer.h \
+		/home/daniil/Qt/5.15.2/gcc_64/include/QtCore/qshareddata.h \
+		/home/daniil/Qt/5.15.2/gcc_64/include/QtCore/qhash.h \
+		/home/daniil/Qt/5.15.2/gcc_64/include/QtCore/qsharedpointer_impl.h \
+		/home/daniil/Qt/5.15.2/gcc_64/include/QtGui/QFont \
+		/home/daniil/Qt/5.15.2/gcc_64/include/QtGui/qfont.h \
+		/home/daniil/Qt/5.15.2/gcc_64/include/QtCore/QVariant \
+		/home/daniil/Qt/5.15.2/gcc_64/include/QtCore/qvariant.h \
+		/home/daniil/Qt/5.15.2/gcc_64/include/QtCore/qmap.h \
+		/home/daniil/Qt/5.15.2/gcc_64/include/QtCore/qdebug.h \
+		/home/daniil/Qt/5.15.2/gcc_64/include/QtCore/qtextstream.h \
+		/home/daniil/Qt/5.15.2/gcc_64/include/QtCore/qlocale.h \
+		/home/daniil/Qt/5.15.2/gcc_64/include/QtCore/qset.h \
+		/home/daniil/Qt/5.15.2/gcc_64/include/QtCore/qcontiguouscache.h \
+		/home/daniil/Qt/5.15.2/gcc_64/include/QtCharts/QAbstractSeries \
+		/home/daniil/Qt/5.15.2/gcc_64/include/QtCharts/qabstractseries.h \
+		/home/daniil/Qt/5.15.2/gcc_64/include/QtCore/QObject \
+		/home/daniil/Qt/5.15.2/gcc_64/include/QtCharts/QChart \
+		/home/daniil/Qt/5.15.2/gcc_64/include/QtCharts/qchart.h \
+		/home/daniil/Qt/5.15.2/gcc_64/include/QtCharts/QLegend \
+		/home/daniil/Qt/5.15.2/gcc_64/include/QtCharts/qlegend.h \
+		/home/daniil/Qt/5.15.2/gcc_64/include/QtWidgets/QGraphicsWidget \
+		/home/daniil/Qt/5.15.2/gcc_64/include/QtWidgets/qgraphicswidget.h \
+		/home/daniil/Qt/5.15.2/gcc_64/include/QtWidgets/qtwidgetsglobal.h \
+		/home/daniil/Qt/5.15.2/gcc_64/include/QtWidgets/qtwidgets-config.h \
+		/home/daniil/Qt/5.15.2/gcc_64/include/QtWidgets/qgraphicslayoutitem.h \
+		/home/daniil/Qt/5.15.2/gcc_64/include/QtWidgets/qsizepolicy.h \
+		/home/daniil/Qt/5.15.2/gcc_64/include/QtGui/qevent.h \
+		/home/daniil/Qt/5.15.2/gcc_64/include/QtGui/qkeysequence.h \
+		/home/daniil/Qt/5.15.2/gcc_64/include/QtCore/qurl.h \
+		/home/daniil/Qt/5.15.2/gcc_64/include/QtCore/qurlquery.h \
+		/home/daniil/Qt/5.15.2/gcc_64/include/QtCore/qfile.h \
+		/home/daniil/Qt/5.15.2/gcc_64/include/QtCore/qfiledevice.h \
+		/home/daniil/Qt/5.15.2/gcc_64/include/QtGui/qvector2d.h \
+		/home/daniil/Qt/5.15.2/gcc_64/include/QtGui/qtouchdevice.h \
+		/home/daniil/Qt/5.15.2/gcc_64/include/QtWidgets/qgraphicsitem.h \
+		/home/daniil/Qt/5.15.2/gcc_64/include/QtGui/qpainterpath.h \
+		/home/daniil/Qt/5.15.2/gcc_64/include/QtGui/qpalette.h \
+		/home/daniil/Qt/5.15.2/gcc_64/include/QtGui/QBrush \
+		/home/daniil/Qt/5.15.2/gcc_64/include/QtCore/QMargins \
+		/home/daniil/Qt/5.15.2/gcc_64/include/QtWidgets/QGraphicsView \
+		/home/daniil/Qt/5.15.2/gcc_64/include/QtWidgets/qgraphicsview.h \
+		/home/daniil/Qt/5.15.2/gcc_64/include/QtGui/qpainter.h \
+		/home/daniil/Qt/5.15.2/gcc_64/include/QtGui/qtextoption.h \
+		/home/daniil/Qt/5.15.2/gcc_64/include/QtGui/qfontinfo.h \
+		/home/daniil/Qt/5.15.2/gcc_64/include/QtGui/qfontmetrics.h \
+		/home/daniil/Qt/5.15.2/gcc_64/include/QtWidgets/qscrollarea.h \
+		/home/daniil/Qt/5.15.2/gcc_64/include/QtWidgets/qabstractscrollarea.h \
+		/home/daniil/Qt/5.15.2/gcc_64/include/QtWidgets/qframe.h \
+		/home/daniil/Qt/5.15.2/gcc_64/include/QtWidgets/qwidget.h \
+		/home/daniil/Qt/5.15.2/gcc_64/include/QtGui/qcursor.h \
+		/home/daniil/Qt/5.15.2/gcc_64/include/QtWidgets/qgraphicsscene.h \
+		.moc/moc_predefs.h \
+		/home/daniil/Qt/5.15.2/gcc_64/bin/moc
+	/home/daniil/Qt/5.15.2/gcc_64/bin/moc $(DEFINES) --include /home/daniil/Repositories/qtmqtt/examples/mqtt/build-mqtt_sub-Qt_5_15_2_gcc_64-Debug/.moc/moc_predefs.h -I/home/daniil/Qt/5.15.2/gcc_64/mkspecs/linux-g++ -I/home/daniil/Repositories/qtmqtt/examples/mqtt/mqtt_sub -I/home/daniil/Repositories/qtmqtt/include -I/home/daniil/Repositories/qtmqtt/include/QtMqtt -I/home/daniil/Qt/5.15.2/gcc_64/include -I/home/daniil/Qt/5.15.2/gcc_64/include/QtCharts -I/home/daniil/Qt/5.15.2/gcc_64/include/QtWidgets -I/home/daniil/Qt/5.15.2/gcc_64/include/QtGui -I/home/daniil/Qt/5.15.2/gcc_64/include/QtNetwork -I/home/daniil/Qt/5.15.2/gcc_64/include/QtCore -I. -I/usr/include/c++/10 -I/usr/include/x86_64-linux-gnu/c++/10 -I/usr/include/c++/10/backward -I/usr/lib/gcc/x86_64-linux-gnu/10/include -I/usr/local/include -I/usr/include/x86_64-linux-gnu -I/usr/include ../mqtt_sub/mqttwidget.h -o .moc/moc_mqttwidget.cpp
 
 compiler_moc_objc_header_make_all:
 compiler_moc_objc_header_clean:
 compiler_moc_source_make_all:
 compiler_moc_source_clean:
-compiler_uic_make_all: .uic/ui_chartwidget.h .uic/ui_indicatorwidget.h .uic/ui_mainwindow.h
+compiler_uic_make_all: .uic/ui_addwidgetdialog.h .uic/ui_chartwidget.h .uic/ui_indicatorwidget.h .uic/ui_mainwindow.h
 compiler_uic_clean:
-	-$(DEL_FILE) .uic/ui_chartwidget.h .uic/ui_indicatorwidget.h .uic/ui_mainwindow.h
+	-$(DEL_FILE) .uic/ui_addwidgetdialog.h .uic/ui_chartwidget.h .uic/ui_indicatorwidget.h .uic/ui_mainwindow.h
+.uic/ui_addwidgetdialog.h: ../mqtt_sub/addwidgetdialog.ui \
+		/home/daniil/Qt/5.15.2/gcc_64/bin/uic
+	/home/daniil/Qt/5.15.2/gcc_64/bin/uic ../mqtt_sub/addwidgetdialog.ui -o .uic/ui_addwidgetdialog.h
+
 .uic/ui_chartwidget.h: ../mqtt_sub/chartwidget.ui \
 		/home/daniil/Qt/5.15.2/gcc_64/bin/uic
 	/home/daniil/Qt/5.15.2/gcc_64/bin/uic ../mqtt_sub/chartwidget.ui -o .uic/ui_chartwidget.h
@@ -1917,6 +2184,151 @@ compiler_lex_clean:
 compiler_clean: compiler_moc_predefs_clean compiler_moc_header_clean compiler_uic_clean 
 
 ####### Compile
+
+.obj/addwidgetdialog.o: ../mqtt_sub/addwidgetdialog.cpp ../mqtt_sub/addwidgetdialog.h \
+		/home/daniil/Qt/5.15.2/gcc_64/include/QtWidgets/QDialog \
+		/home/daniil/Qt/5.15.2/gcc_64/include/QtWidgets/qdialog.h \
+		/home/daniil/Qt/5.15.2/gcc_64/include/QtWidgets/qtwidgetsglobal.h \
+		/home/daniil/Qt/5.15.2/gcc_64/include/QtGui/qtguiglobal.h \
+		/home/daniil/Qt/5.15.2/gcc_64/include/QtCore/qglobal.h \
+		/home/daniil/Qt/5.15.2/gcc_64/include/QtCore/qconfig-bootstrapped.h \
+		/home/daniil/Qt/5.15.2/gcc_64/include/QtCore/qconfig.h \
+		/home/daniil/Qt/5.15.2/gcc_64/include/QtCore/qtcore-config.h \
+		/home/daniil/Qt/5.15.2/gcc_64/include/QtCore/qsystemdetection.h \
+		/home/daniil/Qt/5.15.2/gcc_64/include/QtCore/qprocessordetection.h \
+		/home/daniil/Qt/5.15.2/gcc_64/include/QtCore/qcompilerdetection.h \
+		/home/daniil/Qt/5.15.2/gcc_64/include/QtCore/qtypeinfo.h \
+		/home/daniil/Qt/5.15.2/gcc_64/include/QtCore/qsysinfo.h \
+		/home/daniil/Qt/5.15.2/gcc_64/include/QtCore/qlogging.h \
+		/home/daniil/Qt/5.15.2/gcc_64/include/QtCore/qflags.h \
+		/home/daniil/Qt/5.15.2/gcc_64/include/QtCore/qatomic.h \
+		/home/daniil/Qt/5.15.2/gcc_64/include/QtCore/qbasicatomic.h \
+		/home/daniil/Qt/5.15.2/gcc_64/include/QtCore/qatomic_bootstrap.h \
+		/home/daniil/Qt/5.15.2/gcc_64/include/QtCore/qgenericatomic.h \
+		/home/daniil/Qt/5.15.2/gcc_64/include/QtCore/qatomic_cxx11.h \
+		/home/daniil/Qt/5.15.2/gcc_64/include/QtCore/qatomic_msvc.h \
+		/home/daniil/Qt/5.15.2/gcc_64/include/QtCore/qglobalstatic.h \
+		/home/daniil/Qt/5.15.2/gcc_64/include/QtCore/qmutex.h \
+		/home/daniil/Qt/5.15.2/gcc_64/include/QtCore/qnumeric.h \
+		/home/daniil/Qt/5.15.2/gcc_64/include/QtCore/qversiontagging.h \
+		/home/daniil/Qt/5.15.2/gcc_64/include/QtGui/qtgui-config.h \
+		/home/daniil/Qt/5.15.2/gcc_64/include/QtWidgets/qtwidgets-config.h \
+		/home/daniil/Qt/5.15.2/gcc_64/include/QtWidgets/qwidget.h \
+		/home/daniil/Qt/5.15.2/gcc_64/include/QtGui/qwindowdefs.h \
+		/home/daniil/Qt/5.15.2/gcc_64/include/QtCore/qobjectdefs.h \
+		/home/daniil/Qt/5.15.2/gcc_64/include/QtCore/qnamespace.h \
+		/home/daniil/Qt/5.15.2/gcc_64/include/QtCore/qobjectdefs_impl.h \
+		/home/daniil/Qt/5.15.2/gcc_64/include/QtGui/qwindowdefs_win.h \
+		/home/daniil/Qt/5.15.2/gcc_64/include/QtCore/qobject.h \
+		/home/daniil/Qt/5.15.2/gcc_64/include/QtCore/qstring.h \
+		/home/daniil/Qt/5.15.2/gcc_64/include/QtCore/qchar.h \
+		/home/daniil/Qt/5.15.2/gcc_64/include/QtCore/qbytearray.h \
+		/home/daniil/Qt/5.15.2/gcc_64/include/QtCore/qrefcount.h \
+		/home/daniil/Qt/5.15.2/gcc_64/include/QtCore/qarraydata.h \
+		/home/daniil/Qt/5.15.2/gcc_64/include/QtCore/qstringliteral.h \
+		/home/daniil/Qt/5.15.2/gcc_64/include/QtCore/qstringalgorithms.h \
+		/home/daniil/Qt/5.15.2/gcc_64/include/QtCore/qstringview.h \
+		/home/daniil/Qt/5.15.2/gcc_64/include/QtCore/qstringbuilder.h \
+		/home/daniil/Qt/5.15.2/gcc_64/include/QtCore/qlist.h \
+		/home/daniil/Qt/5.15.2/gcc_64/include/QtCore/qalgorithms.h \
+		/home/daniil/Qt/5.15.2/gcc_64/include/QtCore/qiterator.h \
+		/home/daniil/Qt/5.15.2/gcc_64/include/QtCore/qhashfunctions.h \
+		/home/daniil/Qt/5.15.2/gcc_64/include/QtCore/qpair.h \
+		/home/daniil/Qt/5.15.2/gcc_64/include/QtCore/qvector.h \
+		/home/daniil/Qt/5.15.2/gcc_64/include/QtCore/qcontainertools_impl.h \
+		/home/daniil/Qt/5.15.2/gcc_64/include/QtCore/qpoint.h \
+		/home/daniil/Qt/5.15.2/gcc_64/include/QtCore/qbytearraylist.h \
+		/home/daniil/Qt/5.15.2/gcc_64/include/QtCore/qstringlist.h \
+		/home/daniil/Qt/5.15.2/gcc_64/include/QtCore/qregexp.h \
+		/home/daniil/Qt/5.15.2/gcc_64/include/QtCore/qstringmatcher.h \
+		/home/daniil/Qt/5.15.2/gcc_64/include/QtCore/qcoreevent.h \
+		/home/daniil/Qt/5.15.2/gcc_64/include/QtCore/qscopedpointer.h \
+		/home/daniil/Qt/5.15.2/gcc_64/include/QtCore/qmetatype.h \
+		/home/daniil/Qt/5.15.2/gcc_64/include/QtCore/qvarlengtharray.h \
+		/home/daniil/Qt/5.15.2/gcc_64/include/QtCore/qcontainerfwd.h \
+		/home/daniil/Qt/5.15.2/gcc_64/include/QtCore/qobject_impl.h \
+		/home/daniil/Qt/5.15.2/gcc_64/include/QtCore/qmargins.h \
+		/home/daniil/Qt/5.15.2/gcc_64/include/QtGui/qpaintdevice.h \
+		/home/daniil/Qt/5.15.2/gcc_64/include/QtCore/qrect.h \
+		/home/daniil/Qt/5.15.2/gcc_64/include/QtCore/qsize.h \
+		/home/daniil/Qt/5.15.2/gcc_64/include/QtGui/qpalette.h \
+		/home/daniil/Qt/5.15.2/gcc_64/include/QtGui/qcolor.h \
+		/home/daniil/Qt/5.15.2/gcc_64/include/QtGui/qrgb.h \
+		/home/daniil/Qt/5.15.2/gcc_64/include/QtGui/qrgba64.h \
+		/home/daniil/Qt/5.15.2/gcc_64/include/QtGui/qbrush.h \
+		/home/daniil/Qt/5.15.2/gcc_64/include/QtGui/qmatrix.h \
+		/home/daniil/Qt/5.15.2/gcc_64/include/QtGui/qpolygon.h \
+		/home/daniil/Qt/5.15.2/gcc_64/include/QtGui/qregion.h \
+		/home/daniil/Qt/5.15.2/gcc_64/include/QtCore/qdatastream.h \
+		/home/daniil/Qt/5.15.2/gcc_64/include/QtCore/qiodevice.h \
+		/home/daniil/Qt/5.15.2/gcc_64/include/QtCore/qline.h \
+		/home/daniil/Qt/5.15.2/gcc_64/include/QtGui/qtransform.h \
+		/home/daniil/Qt/5.15.2/gcc_64/include/QtGui/qimage.h \
+		/home/daniil/Qt/5.15.2/gcc_64/include/QtGui/qpixelformat.h \
+		/home/daniil/Qt/5.15.2/gcc_64/include/QtGui/qpixmap.h \
+		/home/daniil/Qt/5.15.2/gcc_64/include/QtCore/qsharedpointer.h \
+		/home/daniil/Qt/5.15.2/gcc_64/include/QtCore/qshareddata.h \
+		/home/daniil/Qt/5.15.2/gcc_64/include/QtCore/qhash.h \
+		/home/daniil/Qt/5.15.2/gcc_64/include/QtCore/qsharedpointer_impl.h \
+		/home/daniil/Qt/5.15.2/gcc_64/include/QtGui/qfont.h \
+		/home/daniil/Qt/5.15.2/gcc_64/include/QtGui/qfontmetrics.h \
+		/home/daniil/Qt/5.15.2/gcc_64/include/QtGui/qfontinfo.h \
+		/home/daniil/Qt/5.15.2/gcc_64/include/QtWidgets/qsizepolicy.h \
+		/home/daniil/Qt/5.15.2/gcc_64/include/QtGui/qcursor.h \
+		/home/daniil/Qt/5.15.2/gcc_64/include/QtGui/qkeysequence.h \
+		/home/daniil/Qt/5.15.2/gcc_64/include/QtGui/qevent.h \
+		/home/daniil/Qt/5.15.2/gcc_64/include/QtCore/qvariant.h \
+		/home/daniil/Qt/5.15.2/gcc_64/include/QtCore/qmap.h \
+		/home/daniil/Qt/5.15.2/gcc_64/include/QtCore/qdebug.h \
+		/home/daniil/Qt/5.15.2/gcc_64/include/QtCore/qtextstream.h \
+		/home/daniil/Qt/5.15.2/gcc_64/include/QtCore/qlocale.h \
+		/home/daniil/Qt/5.15.2/gcc_64/include/QtCore/qset.h \
+		/home/daniil/Qt/5.15.2/gcc_64/include/QtCore/qcontiguouscache.h \
+		/home/daniil/Qt/5.15.2/gcc_64/include/QtCore/qurl.h \
+		/home/daniil/Qt/5.15.2/gcc_64/include/QtCore/qurlquery.h \
+		/home/daniil/Qt/5.15.2/gcc_64/include/QtCore/qfile.h \
+		/home/daniil/Qt/5.15.2/gcc_64/include/QtCore/qfiledevice.h \
+		/home/daniil/Qt/5.15.2/gcc_64/include/QtGui/qvector2d.h \
+		/home/daniil/Qt/5.15.2/gcc_64/include/QtGui/qtouchdevice.h \
+		.uic/ui_addwidgetdialog.h \
+		/home/daniil/Qt/5.15.2/gcc_64/include/QtCore/QVariant \
+		/home/daniil/Qt/5.15.2/gcc_64/include/QtWidgets/QApplication \
+		/home/daniil/Qt/5.15.2/gcc_64/include/QtWidgets/qapplication.h \
+		/home/daniil/Qt/5.15.2/gcc_64/include/QtCore/qcoreapplication.h \
+		/home/daniil/Qt/5.15.2/gcc_64/include/QtCore/qeventloop.h \
+		/home/daniil/Qt/5.15.2/gcc_64/include/QtWidgets/qdesktopwidget.h \
+		/home/daniil/Qt/5.15.2/gcc_64/include/QtGui/qguiapplication.h \
+		/home/daniil/Qt/5.15.2/gcc_64/include/QtGui/qinputmethod.h \
+		/home/daniil/Qt/5.15.2/gcc_64/include/QtWidgets/QComboBox \
+		/home/daniil/Qt/5.15.2/gcc_64/include/QtWidgets/qcombobox.h \
+		/home/daniil/Qt/5.15.2/gcc_64/include/QtWidgets/qabstractitemdelegate.h \
+		/home/daniil/Qt/5.15.2/gcc_64/include/QtWidgets/qstyleoption.h \
+		/home/daniil/Qt/5.15.2/gcc_64/include/QtWidgets/qabstractspinbox.h \
+		/home/daniil/Qt/5.15.2/gcc_64/include/QtGui/qvalidator.h \
+		/home/daniil/Qt/5.15.2/gcc_64/include/QtCore/qregularexpression.h \
+		/home/daniil/Qt/5.15.2/gcc_64/include/QtGui/qicon.h \
+		/home/daniil/Qt/5.15.2/gcc_64/include/QtWidgets/qslider.h \
+		/home/daniil/Qt/5.15.2/gcc_64/include/QtWidgets/qabstractslider.h \
+		/home/daniil/Qt/5.15.2/gcc_64/include/QtWidgets/qstyle.h \
+		/home/daniil/Qt/5.15.2/gcc_64/include/QtWidgets/qtabbar.h \
+		/home/daniil/Qt/5.15.2/gcc_64/include/QtWidgets/qtabwidget.h \
+		/home/daniil/Qt/5.15.2/gcc_64/include/QtWidgets/qrubberband.h \
+		/home/daniil/Qt/5.15.2/gcc_64/include/QtWidgets/qframe.h \
+		/home/daniil/Qt/5.15.2/gcc_64/include/QtCore/qabstractitemmodel.h \
+		/home/daniil/Qt/5.15.2/gcc_64/include/QtWidgets/QDialogButtonBox \
+		/home/daniil/Qt/5.15.2/gcc_64/include/QtWidgets/qdialogbuttonbox.h \
+		/home/daniil/Qt/5.15.2/gcc_64/include/QtWidgets/QLabel \
+		/home/daniil/Qt/5.15.2/gcc_64/include/QtWidgets/qlabel.h \
+		/home/daniil/Qt/5.15.2/gcc_64/include/QtWidgets/QSpacerItem \
+		/home/daniil/Qt/5.15.2/gcc_64/include/QtWidgets/qlayoutitem.h \
+		/home/daniil/Qt/5.15.2/gcc_64/include/QtWidgets/QStackedWidget \
+		/home/daniil/Qt/5.15.2/gcc_64/include/QtWidgets/qstackedwidget.h \
+		/home/daniil/Qt/5.15.2/gcc_64/include/QtWidgets/QVBoxLayout \
+		/home/daniil/Qt/5.15.2/gcc_64/include/QtWidgets/qboxlayout.h \
+		/home/daniil/Qt/5.15.2/gcc_64/include/QtWidgets/qlayout.h \
+		/home/daniil/Qt/5.15.2/gcc_64/include/QtWidgets/qgridlayout.h \
+		/home/daniil/Qt/5.15.2/gcc_64/include/QtWidgets/QWidget
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o .obj/addwidgetdialog.o ../mqtt_sub/addwidgetdialog.cpp
 
 .obj/chartwidget.o: ../mqtt_sub/chartwidget.cpp ../mqtt_sub/chartwidget.h \
 		/home/daniil/Qt/5.15.2/gcc_64/include/QtWidgets/QWidget \
@@ -2593,10 +3005,9 @@ compiler_clean: compiler_moc_predefs_clean compiler_moc_header_clean compiler_ui
 		/home/daniil/Qt/5.15.2/gcc_64/include/QtWidgets/qdesktopwidget.h \
 		/home/daniil/Qt/5.15.2/gcc_64/include/QtGui/qguiapplication.h \
 		/home/daniil/Qt/5.15.2/gcc_64/include/QtGui/qinputmethod.h \
-		/home/daniil/Qt/5.15.2/gcc_64/include/QtWidgets/QRadioButton \
-		/home/daniil/Qt/5.15.2/gcc_64/include/QtWidgets/qradiobutton.h \
-		/home/daniil/Qt/5.15.2/gcc_64/include/QtWidgets/qabstractbutton.h \
-		/home/daniil/Qt/5.15.2/gcc_64/include/QtGui/qicon.h
+		/home/daniil/Qt/5.15.2/gcc_64/include/QtWidgets/QSlider \
+		/home/daniil/Qt/5.15.2/gcc_64/include/QtWidgets/qslider.h \
+		/home/daniil/Qt/5.15.2/gcc_64/include/QtWidgets/qabstractslider.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o .obj/indicatorwidget.o ../mqtt_sub/indicatorwidget.cpp
 
 .obj/main.o: ../mqtt_sub/main.cpp ../mqtt_sub/mainwindow.h \
@@ -3199,6 +3610,8 @@ compiler_clean: compiler_moc_predefs_clean compiler_moc_header_clean compiler_ui
 		/home/daniil/Qt/5.15.2/gcc_64/include/QtCharts/qvxymodelmapper.h \
 		/home/daniil/Qt/5.15.2/gcc_64/include/QtCharts/qxylegendmarker.h \
 		/home/daniil/Qt/5.15.2/gcc_64/include/QtCharts/qtchartsversion.h \
+		../mqtt_sub/addwidgetdialog.h \
+		/home/daniil/Qt/5.15.2/gcc_64/include/QtWidgets/QDialog \
 		/home/daniil/Qt/5.15.2/gcc_64/include/QtWidgets/QApplication
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o .obj/main.o ../mqtt_sub/main.cpp
 
@@ -3802,15 +4215,165 @@ compiler_clean: compiler_moc_predefs_clean compiler_moc_header_clean compiler_ui
 		/home/daniil/Qt/5.15.2/gcc_64/include/QtCharts/qvxymodelmapper.h \
 		/home/daniil/Qt/5.15.2/gcc_64/include/QtCharts/qxylegendmarker.h \
 		/home/daniil/Qt/5.15.2/gcc_64/include/QtCharts/qtchartsversion.h \
+		../mqtt_sub/addwidgetdialog.h \
+		/home/daniil/Qt/5.15.2/gcc_64/include/QtWidgets/QDialog \
 		.uic/ui_mainwindow.h \
+		/home/daniil/Qt/5.15.2/gcc_64/include/QtWidgets/QAction \
 		/home/daniil/Qt/5.15.2/gcc_64/include/QtWidgets/QApplication \
+		/home/daniil/Qt/5.15.2/gcc_64/include/QtWidgets/QFormLayout \
+		/home/daniil/Qt/5.15.2/gcc_64/include/QtWidgets/QGridLayout \
 		/home/daniil/Qt/5.15.2/gcc_64/include/QtWidgets/QLabel \
 		/home/daniil/Qt/5.15.2/gcc_64/include/QtWidgets/QLineEdit \
+		/home/daniil/Qt/5.15.2/gcc_64/include/QtWidgets/QMenu \
 		/home/daniil/Qt/5.15.2/gcc_64/include/QtWidgets/QMenuBar \
 		/home/daniil/Qt/5.15.2/gcc_64/include/QtWidgets/QPushButton \
+		/home/daniil/Qt/5.15.2/gcc_64/include/QtWidgets/QScrollArea \
 		/home/daniil/Qt/5.15.2/gcc_64/include/QtWidgets/QStatusBar \
-		/home/daniil/Qt/5.15.2/gcc_64/include/QtWidgets/QMessageBox
+		/home/daniil/Qt/5.15.2/gcc_64/include/QtWidgets/QVBoxLayout \
+		/home/daniil/Qt/5.15.2/gcc_64/include/QtWidgets/QMessageBox \
+		/home/daniil/Qt/5.15.2/gcc_64/include/QtGui/QColor
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o .obj/mainwindow.o ../mqtt_sub/mainwindow.cpp
+
+.obj/mqttwidget.o: ../mqtt_sub/mqttwidget.cpp ../mqtt_sub/mqttwidget.h \
+		/home/daniil/Qt/5.15.2/gcc_64/include/QtCharts/QChartView \
+		/home/daniil/Qt/5.15.2/gcc_64/include/QtCharts/qchartview.h \
+		/home/daniil/Qt/5.15.2/gcc_64/include/QtCharts/QAbstractAxis \
+		/home/daniil/Qt/5.15.2/gcc_64/include/QtCharts/qabstractaxis.h \
+		/home/daniil/Qt/5.15.2/gcc_64/include/QtCharts/QChartGlobal \
+		/home/daniil/Qt/5.15.2/gcc_64/include/QtCharts/qchartglobal.h \
+		/home/daniil/Qt/5.15.2/gcc_64/include/QtCore/QtGlobal \
+		/home/daniil/Qt/5.15.2/gcc_64/include/QtCore/qglobal.h \
+		/home/daniil/Qt/5.15.2/gcc_64/include/QtCore/qconfig-bootstrapped.h \
+		/home/daniil/Qt/5.15.2/gcc_64/include/QtCore/qconfig.h \
+		/home/daniil/Qt/5.15.2/gcc_64/include/QtCore/qtcore-config.h \
+		/home/daniil/Qt/5.15.2/gcc_64/include/QtCore/qsystemdetection.h \
+		/home/daniil/Qt/5.15.2/gcc_64/include/QtCore/qprocessordetection.h \
+		/home/daniil/Qt/5.15.2/gcc_64/include/QtCore/qcompilerdetection.h \
+		/home/daniil/Qt/5.15.2/gcc_64/include/QtCore/qtypeinfo.h \
+		/home/daniil/Qt/5.15.2/gcc_64/include/QtCore/qsysinfo.h \
+		/home/daniil/Qt/5.15.2/gcc_64/include/QtCore/qlogging.h \
+		/home/daniil/Qt/5.15.2/gcc_64/include/QtCore/qflags.h \
+		/home/daniil/Qt/5.15.2/gcc_64/include/QtCore/qatomic.h \
+		/home/daniil/Qt/5.15.2/gcc_64/include/QtCore/qbasicatomic.h \
+		/home/daniil/Qt/5.15.2/gcc_64/include/QtCore/qatomic_bootstrap.h \
+		/home/daniil/Qt/5.15.2/gcc_64/include/QtCore/qgenericatomic.h \
+		/home/daniil/Qt/5.15.2/gcc_64/include/QtCore/qatomic_cxx11.h \
+		/home/daniil/Qt/5.15.2/gcc_64/include/QtCore/qatomic_msvc.h \
+		/home/daniil/Qt/5.15.2/gcc_64/include/QtCore/qglobalstatic.h \
+		/home/daniil/Qt/5.15.2/gcc_64/include/QtCore/qmutex.h \
+		/home/daniil/Qt/5.15.2/gcc_64/include/QtCore/qnumeric.h \
+		/home/daniil/Qt/5.15.2/gcc_64/include/QtCore/qversiontagging.h \
+		/home/daniil/Qt/5.15.2/gcc_64/include/QtGui/QPen \
+		/home/daniil/Qt/5.15.2/gcc_64/include/QtGui/qpen.h \
+		/home/daniil/Qt/5.15.2/gcc_64/include/QtGui/qtguiglobal.h \
+		/home/daniil/Qt/5.15.2/gcc_64/include/QtGui/qtgui-config.h \
+		/home/daniil/Qt/5.15.2/gcc_64/include/QtGui/qcolor.h \
+		/home/daniil/Qt/5.15.2/gcc_64/include/QtGui/qrgb.h \
+		/home/daniil/Qt/5.15.2/gcc_64/include/QtCore/qnamespace.h \
+		/home/daniil/Qt/5.15.2/gcc_64/include/QtCore/qstringlist.h \
+		/home/daniil/Qt/5.15.2/gcc_64/include/QtCore/qlist.h \
+		/home/daniil/Qt/5.15.2/gcc_64/include/QtCore/qalgorithms.h \
+		/home/daniil/Qt/5.15.2/gcc_64/include/QtCore/qiterator.h \
+		/home/daniil/Qt/5.15.2/gcc_64/include/QtCore/qrefcount.h \
+		/home/daniil/Qt/5.15.2/gcc_64/include/QtCore/qarraydata.h \
+		/home/daniil/Qt/5.15.2/gcc_64/include/QtCore/qhashfunctions.h \
+		/home/daniil/Qt/5.15.2/gcc_64/include/QtCore/qstring.h \
+		/home/daniil/Qt/5.15.2/gcc_64/include/QtCore/qchar.h \
+		/home/daniil/Qt/5.15.2/gcc_64/include/QtCore/qbytearray.h \
+		/home/daniil/Qt/5.15.2/gcc_64/include/QtCore/qstringliteral.h \
+		/home/daniil/Qt/5.15.2/gcc_64/include/QtCore/qstringalgorithms.h \
+		/home/daniil/Qt/5.15.2/gcc_64/include/QtCore/qstringview.h \
+		/home/daniil/Qt/5.15.2/gcc_64/include/QtCore/qstringbuilder.h \
+		/home/daniil/Qt/5.15.2/gcc_64/include/QtCore/qpair.h \
+		/home/daniil/Qt/5.15.2/gcc_64/include/QtCore/qvector.h \
+		/home/daniil/Qt/5.15.2/gcc_64/include/QtCore/qcontainertools_impl.h \
+		/home/daniil/Qt/5.15.2/gcc_64/include/QtCore/qpoint.h \
+		/home/daniil/Qt/5.15.2/gcc_64/include/QtCore/qbytearraylist.h \
+		/home/daniil/Qt/5.15.2/gcc_64/include/QtCore/qregexp.h \
+		/home/daniil/Qt/5.15.2/gcc_64/include/QtCore/qstringmatcher.h \
+		/home/daniil/Qt/5.15.2/gcc_64/include/QtGui/qrgba64.h \
+		/home/daniil/Qt/5.15.2/gcc_64/include/QtGui/qbrush.h \
+		/home/daniil/Qt/5.15.2/gcc_64/include/QtCore/qscopedpointer.h \
+		/home/daniil/Qt/5.15.2/gcc_64/include/QtGui/qmatrix.h \
+		/home/daniil/Qt/5.15.2/gcc_64/include/QtGui/qpolygon.h \
+		/home/daniil/Qt/5.15.2/gcc_64/include/QtCore/qrect.h \
+		/home/daniil/Qt/5.15.2/gcc_64/include/QtCore/qmargins.h \
+		/home/daniil/Qt/5.15.2/gcc_64/include/QtCore/qsize.h \
+		/home/daniil/Qt/5.15.2/gcc_64/include/QtGui/qregion.h \
+		/home/daniil/Qt/5.15.2/gcc_64/include/QtGui/qwindowdefs.h \
+		/home/daniil/Qt/5.15.2/gcc_64/include/QtCore/qobjectdefs.h \
+		/home/daniil/Qt/5.15.2/gcc_64/include/QtCore/qobjectdefs_impl.h \
+		/home/daniil/Qt/5.15.2/gcc_64/include/QtGui/qwindowdefs_win.h \
+		/home/daniil/Qt/5.15.2/gcc_64/include/QtCore/qdatastream.h \
+		/home/daniil/Qt/5.15.2/gcc_64/include/QtCore/qiodevice.h \
+		/home/daniil/Qt/5.15.2/gcc_64/include/QtCore/qobject.h \
+		/home/daniil/Qt/5.15.2/gcc_64/include/QtCore/qcoreevent.h \
+		/home/daniil/Qt/5.15.2/gcc_64/include/QtCore/qmetatype.h \
+		/home/daniil/Qt/5.15.2/gcc_64/include/QtCore/qvarlengtharray.h \
+		/home/daniil/Qt/5.15.2/gcc_64/include/QtCore/qcontainerfwd.h \
+		/home/daniil/Qt/5.15.2/gcc_64/include/QtCore/qobject_impl.h \
+		/home/daniil/Qt/5.15.2/gcc_64/include/QtCore/qline.h \
+		/home/daniil/Qt/5.15.2/gcc_64/include/QtGui/qtransform.h \
+		/home/daniil/Qt/5.15.2/gcc_64/include/QtGui/qimage.h \
+		/home/daniil/Qt/5.15.2/gcc_64/include/QtGui/qpaintdevice.h \
+		/home/daniil/Qt/5.15.2/gcc_64/include/QtGui/qpixelformat.h \
+		/home/daniil/Qt/5.15.2/gcc_64/include/QtGui/qpixmap.h \
+		/home/daniil/Qt/5.15.2/gcc_64/include/QtCore/qsharedpointer.h \
+		/home/daniil/Qt/5.15.2/gcc_64/include/QtCore/qshareddata.h \
+		/home/daniil/Qt/5.15.2/gcc_64/include/QtCore/qhash.h \
+		/home/daniil/Qt/5.15.2/gcc_64/include/QtCore/qsharedpointer_impl.h \
+		/home/daniil/Qt/5.15.2/gcc_64/include/QtGui/QFont \
+		/home/daniil/Qt/5.15.2/gcc_64/include/QtGui/qfont.h \
+		/home/daniil/Qt/5.15.2/gcc_64/include/QtCore/QVariant \
+		/home/daniil/Qt/5.15.2/gcc_64/include/QtCore/qvariant.h \
+		/home/daniil/Qt/5.15.2/gcc_64/include/QtCore/qmap.h \
+		/home/daniil/Qt/5.15.2/gcc_64/include/QtCore/qdebug.h \
+		/home/daniil/Qt/5.15.2/gcc_64/include/QtCore/qtextstream.h \
+		/home/daniil/Qt/5.15.2/gcc_64/include/QtCore/qlocale.h \
+		/home/daniil/Qt/5.15.2/gcc_64/include/QtCore/qset.h \
+		/home/daniil/Qt/5.15.2/gcc_64/include/QtCore/qcontiguouscache.h \
+		/home/daniil/Qt/5.15.2/gcc_64/include/QtCharts/QAbstractSeries \
+		/home/daniil/Qt/5.15.2/gcc_64/include/QtCharts/qabstractseries.h \
+		/home/daniil/Qt/5.15.2/gcc_64/include/QtCore/QObject \
+		/home/daniil/Qt/5.15.2/gcc_64/include/QtCharts/QChart \
+		/home/daniil/Qt/5.15.2/gcc_64/include/QtCharts/qchart.h \
+		/home/daniil/Qt/5.15.2/gcc_64/include/QtCharts/QLegend \
+		/home/daniil/Qt/5.15.2/gcc_64/include/QtCharts/qlegend.h \
+		/home/daniil/Qt/5.15.2/gcc_64/include/QtWidgets/QGraphicsWidget \
+		/home/daniil/Qt/5.15.2/gcc_64/include/QtWidgets/qgraphicswidget.h \
+		/home/daniil/Qt/5.15.2/gcc_64/include/QtWidgets/qtwidgetsglobal.h \
+		/home/daniil/Qt/5.15.2/gcc_64/include/QtWidgets/qtwidgets-config.h \
+		/home/daniil/Qt/5.15.2/gcc_64/include/QtWidgets/qgraphicslayoutitem.h \
+		/home/daniil/Qt/5.15.2/gcc_64/include/QtWidgets/qsizepolicy.h \
+		/home/daniil/Qt/5.15.2/gcc_64/include/QtGui/qevent.h \
+		/home/daniil/Qt/5.15.2/gcc_64/include/QtGui/qkeysequence.h \
+		/home/daniil/Qt/5.15.2/gcc_64/include/QtCore/qurl.h \
+		/home/daniil/Qt/5.15.2/gcc_64/include/QtCore/qurlquery.h \
+		/home/daniil/Qt/5.15.2/gcc_64/include/QtCore/qfile.h \
+		/home/daniil/Qt/5.15.2/gcc_64/include/QtCore/qfiledevice.h \
+		/home/daniil/Qt/5.15.2/gcc_64/include/QtGui/qvector2d.h \
+		/home/daniil/Qt/5.15.2/gcc_64/include/QtGui/qtouchdevice.h \
+		/home/daniil/Qt/5.15.2/gcc_64/include/QtWidgets/qgraphicsitem.h \
+		/home/daniil/Qt/5.15.2/gcc_64/include/QtGui/qpainterpath.h \
+		/home/daniil/Qt/5.15.2/gcc_64/include/QtGui/qpalette.h \
+		/home/daniil/Qt/5.15.2/gcc_64/include/QtGui/QBrush \
+		/home/daniil/Qt/5.15.2/gcc_64/include/QtCore/QMargins \
+		/home/daniil/Qt/5.15.2/gcc_64/include/QtWidgets/QGraphicsView \
+		/home/daniil/Qt/5.15.2/gcc_64/include/QtWidgets/qgraphicsview.h \
+		/home/daniil/Qt/5.15.2/gcc_64/include/QtGui/qpainter.h \
+		/home/daniil/Qt/5.15.2/gcc_64/include/QtGui/qtextoption.h \
+		/home/daniil/Qt/5.15.2/gcc_64/include/QtGui/qfontinfo.h \
+		/home/daniil/Qt/5.15.2/gcc_64/include/QtGui/qfontmetrics.h \
+		/home/daniil/Qt/5.15.2/gcc_64/include/QtWidgets/qscrollarea.h \
+		/home/daniil/Qt/5.15.2/gcc_64/include/QtWidgets/qabstractscrollarea.h \
+		/home/daniil/Qt/5.15.2/gcc_64/include/QtWidgets/qframe.h \
+		/home/daniil/Qt/5.15.2/gcc_64/include/QtWidgets/qwidget.h \
+		/home/daniil/Qt/5.15.2/gcc_64/include/QtGui/qcursor.h \
+		/home/daniil/Qt/5.15.2/gcc_64/include/QtWidgets/qgraphicsscene.h
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o .obj/mqttwidget.o ../mqtt_sub/mqttwidget.cpp
+
+.obj/moc_addwidgetdialog.o: .moc/moc_addwidgetdialog.cpp 
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o .obj/moc_addwidgetdialog.o .moc/moc_addwidgetdialog.cpp
 
 .obj/moc_chartwidget.o: .moc/moc_chartwidget.cpp 
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o .obj/moc_chartwidget.o .moc/moc_chartwidget.cpp
@@ -3820,6 +4383,9 @@ compiler_clean: compiler_moc_predefs_clean compiler_moc_header_clean compiler_ui
 
 .obj/moc_mainwindow.o: .moc/moc_mainwindow.cpp 
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o .obj/moc_mainwindow.o .moc/moc_mainwindow.cpp
+
+.obj/moc_mqttwidget.o: .moc/moc_mqttwidget.cpp 
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o .obj/moc_mqttwidget.o .moc/moc_mqttwidget.cpp
 
 ####### Install
 
@@ -3835,13 +4401,18 @@ uninstall_target: FORCE
 install_sources: first FORCE
 	@test -d $(INSTALL_ROOT)/home/daniil/Qt/Examples/Qt-5.15.2/mqtt/mqtt_sub || mkdir -p $(INSTALL_ROOT)/home/daniil/Qt/Examples/Qt-5.15.2/mqtt/mqtt_sub
 	$(QINSTALL) /home/daniil/Repositories/qtmqtt/examples/mqtt/mqtt_sub/mqtt_sub.pro $(INSTALL_ROOT)/home/daniil/Qt/Examples/Qt-5.15.2/mqtt/mqtt_sub/mqtt_sub.pro
+	$(QINSTALL) /home/daniil/Repositories/qtmqtt/examples/mqtt/mqtt_sub/addwidgetdialog.cpp $(INSTALL_ROOT)/home/daniil/Qt/Examples/Qt-5.15.2/mqtt/mqtt_sub/addwidgetdialog.cpp
 	$(QINSTALL) /home/daniil/Repositories/qtmqtt/examples/mqtt/mqtt_sub/chartwidget.cpp $(INSTALL_ROOT)/home/daniil/Qt/Examples/Qt-5.15.2/mqtt/mqtt_sub/chartwidget.cpp
 	$(QINSTALL) /home/daniil/Repositories/qtmqtt/examples/mqtt/mqtt_sub/indicatorwidget.cpp $(INSTALL_ROOT)/home/daniil/Qt/Examples/Qt-5.15.2/mqtt/mqtt_sub/indicatorwidget.cpp
 	$(QINSTALL) /home/daniil/Repositories/qtmqtt/examples/mqtt/mqtt_sub/main.cpp $(INSTALL_ROOT)/home/daniil/Qt/Examples/Qt-5.15.2/mqtt/mqtt_sub/main.cpp
 	$(QINSTALL) /home/daniil/Repositories/qtmqtt/examples/mqtt/mqtt_sub/mainwindow.cpp $(INSTALL_ROOT)/home/daniil/Qt/Examples/Qt-5.15.2/mqtt/mqtt_sub/mainwindow.cpp
+	$(QINSTALL) /home/daniil/Repositories/qtmqtt/examples/mqtt/mqtt_sub/mqttwidget.cpp $(INSTALL_ROOT)/home/daniil/Qt/Examples/Qt-5.15.2/mqtt/mqtt_sub/mqttwidget.cpp
+	$(QINSTALL) /home/daniil/Repositories/qtmqtt/examples/mqtt/mqtt_sub/addwidgetdialog.h $(INSTALL_ROOT)/home/daniil/Qt/Examples/Qt-5.15.2/mqtt/mqtt_sub/addwidgetdialog.h
 	$(QINSTALL) /home/daniil/Repositories/qtmqtt/examples/mqtt/mqtt_sub/chartwidget.h $(INSTALL_ROOT)/home/daniil/Qt/Examples/Qt-5.15.2/mqtt/mqtt_sub/chartwidget.h
 	$(QINSTALL) /home/daniil/Repositories/qtmqtt/examples/mqtt/mqtt_sub/indicatorwidget.h $(INSTALL_ROOT)/home/daniil/Qt/Examples/Qt-5.15.2/mqtt/mqtt_sub/indicatorwidget.h
 	$(QINSTALL) /home/daniil/Repositories/qtmqtt/examples/mqtt/mqtt_sub/mainwindow.h $(INSTALL_ROOT)/home/daniil/Qt/Examples/Qt-5.15.2/mqtt/mqtt_sub/mainwindow.h
+	$(QINSTALL) /home/daniil/Repositories/qtmqtt/examples/mqtt/mqtt_sub/mqttwidget.h $(INSTALL_ROOT)/home/daniil/Qt/Examples/Qt-5.15.2/mqtt/mqtt_sub/mqttwidget.h
+	$(QINSTALL) /home/daniil/Repositories/qtmqtt/examples/mqtt/mqtt_sub/addwidgetdialog.ui $(INSTALL_ROOT)/home/daniil/Qt/Examples/Qt-5.15.2/mqtt/mqtt_sub/addwidgetdialog.ui
 	$(QINSTALL) /home/daniil/Repositories/qtmqtt/examples/mqtt/mqtt_sub/chartwidget.ui $(INSTALL_ROOT)/home/daniil/Qt/Examples/Qt-5.15.2/mqtt/mqtt_sub/chartwidget.ui
 	$(QINSTALL) /home/daniil/Repositories/qtmqtt/examples/mqtt/mqtt_sub/indicatorwidget.ui $(INSTALL_ROOT)/home/daniil/Qt/Examples/Qt-5.15.2/mqtt/mqtt_sub/indicatorwidget.ui
 	$(QINSTALL) /home/daniil/Repositories/qtmqtt/examples/mqtt/mqtt_sub/mainwindow.ui $(INSTALL_ROOT)/home/daniil/Qt/Examples/Qt-5.15.2/mqtt/mqtt_sub/mainwindow.ui
@@ -3850,13 +4421,18 @@ uninstall_sources: FORCE
 	-$(DEL_FILE) -r $(INSTALL_ROOT)/home/daniil/Qt/Examples/Qt-5.15.2/mqtt/mqtt_sub/mainwindow.ui
 	-$(DEL_FILE) -r $(INSTALL_ROOT)/home/daniil/Qt/Examples/Qt-5.15.2/mqtt/mqtt_sub/indicatorwidget.ui
 	-$(DEL_FILE) -r $(INSTALL_ROOT)/home/daniil/Qt/Examples/Qt-5.15.2/mqtt/mqtt_sub/chartwidget.ui
+	-$(DEL_FILE) -r $(INSTALL_ROOT)/home/daniil/Qt/Examples/Qt-5.15.2/mqtt/mqtt_sub/addwidgetdialog.ui
+	-$(DEL_FILE) -r $(INSTALL_ROOT)/home/daniil/Qt/Examples/Qt-5.15.2/mqtt/mqtt_sub/mqttwidget.h
 	-$(DEL_FILE) -r $(INSTALL_ROOT)/home/daniil/Qt/Examples/Qt-5.15.2/mqtt/mqtt_sub/mainwindow.h
 	-$(DEL_FILE) -r $(INSTALL_ROOT)/home/daniil/Qt/Examples/Qt-5.15.2/mqtt/mqtt_sub/indicatorwidget.h
 	-$(DEL_FILE) -r $(INSTALL_ROOT)/home/daniil/Qt/Examples/Qt-5.15.2/mqtt/mqtt_sub/chartwidget.h
+	-$(DEL_FILE) -r $(INSTALL_ROOT)/home/daniil/Qt/Examples/Qt-5.15.2/mqtt/mqtt_sub/addwidgetdialog.h
+	-$(DEL_FILE) -r $(INSTALL_ROOT)/home/daniil/Qt/Examples/Qt-5.15.2/mqtt/mqtt_sub/mqttwidget.cpp
 	-$(DEL_FILE) -r $(INSTALL_ROOT)/home/daniil/Qt/Examples/Qt-5.15.2/mqtt/mqtt_sub/mainwindow.cpp
 	-$(DEL_FILE) -r $(INSTALL_ROOT)/home/daniil/Qt/Examples/Qt-5.15.2/mqtt/mqtt_sub/main.cpp
 	-$(DEL_FILE) -r $(INSTALL_ROOT)/home/daniil/Qt/Examples/Qt-5.15.2/mqtt/mqtt_sub/indicatorwidget.cpp
 	-$(DEL_FILE) -r $(INSTALL_ROOT)/home/daniil/Qt/Examples/Qt-5.15.2/mqtt/mqtt_sub/chartwidget.cpp
+	-$(DEL_FILE) -r $(INSTALL_ROOT)/home/daniil/Qt/Examples/Qt-5.15.2/mqtt/mqtt_sub/addwidgetdialog.cpp
 	-$(DEL_FILE) -r $(INSTALL_ROOT)/home/daniil/Qt/Examples/Qt-5.15.2/mqtt/mqtt_sub/mqtt_sub.pro
 	-$(DEL_DIR) $(INSTALL_ROOT)/home/daniil/Qt/Examples/Qt-5.15.2/mqtt/mqtt_sub/ 
 
