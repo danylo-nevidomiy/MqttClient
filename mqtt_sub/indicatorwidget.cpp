@@ -2,8 +2,8 @@
 #include "ui_indicatorwidget.h"
 #include <iostream>
 
-IndicatorWidget::IndicatorWidget(QWidget *parent) :
-    QWidget(parent),
+IndicatorWidget::IndicatorWidget(QString name, QString topic, QWidget *parent) :
+    QWidget(parent), MqttWidget(name, topic),
     ui(new Ui::IndicatorWidget)
 {
     //    ui = new Ui::Widget();
@@ -47,6 +47,11 @@ void IndicatorWidget::setAngle(int angle)
 {
     this->angle = angle+135;
     repaint();
+}
+
+void IndicatorWidget::setValue(QString value)
+{
+    setAngle(value.toInt());
 }
 /* If same radio button will be pressed,
  * then we execute the drawing new view of circle

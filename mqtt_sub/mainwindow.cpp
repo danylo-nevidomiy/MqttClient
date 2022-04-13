@@ -12,10 +12,12 @@ MainWindow::MainWindow(QWidget *parent)
 {
 
     ui->setupUi(this);
-    indicator = new IndicatorWidget(ui->scrollAreaWidgetContents_2);
-    widget = new IndicatorWidget(ui->scrollAreaWidgetContents_2);
+    indicator = new IndicatorWidget("i", "indicator", ui->scrollAreaWidgetContents_2);
+    widget = new IndicatorWidget("2", "indicator", ui->scrollAreaWidgetContents_2);
     chart = new ChartWidget(ui->scrollAreaWidgetContents_2);
-
+    widgets.append(indicator);
+    widgets.append(chart);
+    widgets.append(widget);
     //    ui->scrollArea->setParent(this);
     //    ui->scrollArea->setVerticalScrollBarPolicy(Qt::ScrollBarAlwaysOn);
     //    ui->scrollArea->setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOn);
@@ -95,16 +97,16 @@ void MainWindow::on_pushButton_sub_clicked()
 void MainWindow::on_actionAdd_triggered()
 {
     awd = new AddWidgetDialog();
-    connect(awd, SIGNAL(AddWidget(QString)), this, SLOT(AddWidget(QString)));
+    connect(awd, SIGNAL(AddWidget(QString, QString)), this, SLOT(AddWidget(QString, QString)));
     awd->show();
 }
 
-void MainWindow::AddWidget(QString type)
+void MainWindow::AddWidget(QString type, QString name, QString topic)
 {
     qDebug() << "Adding...";
     if(QString::compare(type, QString::fromStdString("Indicator")) == 0)
     {
-        IndicatorWidget *i = new IndicatorWidget();
+        IndicatorWidget *i = new IndicatorWidget(name, topic);
 
         ui->gridLayout->addWidget(i);
     }else if(QString::compare(type, QString::fromStdString("Chart")) == 0)

@@ -112,3 +112,8 @@ void ChartWidget::addValue(double value)
 //    hide();
     show();
 }
+
+void ChartWidget::setValue(QString value)
+{
+    addValue(value.toDouble());
+}

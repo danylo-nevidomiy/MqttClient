@@ -25,7 +25,7 @@ private slots:
 
     void on_pushButton_sub_clicked();
     void on_actionAdd_triggered();
-    void AddWidget(QString type);
+    void AddWidget(QString type, QString name, QString topic);
 
 private:
     Ui::MainWindow *ui;
@@ -37,7 +37,7 @@ private:
     ChartWidget *chart;
     IndicatorWidget *indicator;
     AddWidgetDialog *awd;
-
+    QVector<MqttWidget*> widgets;
     void sliderSubscription();
 };
 #endif // MAINWINDOW_H

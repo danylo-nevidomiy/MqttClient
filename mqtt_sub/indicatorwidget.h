@@ -9,14 +9,15 @@ namespace Ui {
 class IndicatorWidget;
 }
 
-class IndicatorWidget : public QWidget
+class IndicatorWidget : public QWidget, public MqttWidget
 {
     Q_OBJECT
 
 public:
-    explicit IndicatorWidget(QWidget *parent = 0);
+    explicit IndicatorWidget(QString name, QString topic, QWidget *parent = 0);
     ~IndicatorWidget();
     void setAngle(int angle);
+    void setValue(QString value);
 
 protected:
     /* Define method of base class

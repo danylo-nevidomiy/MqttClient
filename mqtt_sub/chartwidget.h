@@ -12,7 +12,7 @@ namespace Ui {
 class ChartWidget;
 }
 
-class ChartWidget : public MqttWidget
+class ChartWidget : public QChartView, public MqttWidget
 {
     Q_OBJECT
 
@@ -20,6 +20,7 @@ public:
     explicit ChartWidget(QWidget *parent = nullptr);
     ~ChartWidget();
     void addValue(double value);
+    void setValue(QString value);
 
 protected:
     /* Define method of base class

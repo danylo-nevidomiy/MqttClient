@@ -19,7 +19,7 @@ AddWidgetDialog::~AddWidgetDialog()
 
 void AddWidgetDialog::on_AddWidgetDialog_accepted()
 {
-    emit AddWidget(ui->comboBox->currentText());
+    emit AddWidget(ui->comboBox->currentText(), ui->lineEditName->text(), ui->lineEditTopic->text());
 }
 
 

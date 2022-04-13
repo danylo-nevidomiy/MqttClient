@@ -21,7 +21,7 @@ private slots:
     void on_AddWidgetDialog_rejected();
 
 signals:
-    void AddWidget(QString type);
+    void AddWidget(QString type, QString name, QString topic);
 private:
     Ui::AddWidgetDialog *ui;
 };
