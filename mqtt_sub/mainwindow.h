@@ -34,6 +34,12 @@ private slots:
     void AddWidget(QString type, QString name, QString topic);
     void sendValue(QString topic, QString value);
 
+    void on_tabWidget_currentChanged(int index);
+
+//    void on_tabWidget_customContextMenuRequested(const QPoint &pos);
+
+    void on_tabWidget_tabCloseRequested(int index);
+
 private:
     Ui::MainWindow *ui;
     QMqttClient *cli;
@@ -48,5 +54,6 @@ private:
     QVector<MqttWidget*> widgets;
     void sliderSubscription();
     QStringList list = {"Indicator", "Chart", "Switcher", "Input", "Value"};
+    QMenu *TabMenu;
 };
 #endif // MAINWINDOW_H

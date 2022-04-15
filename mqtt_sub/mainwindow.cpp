@@ -37,6 +37,9 @@ MainWindow::MainWindow(QWidget *parent)
     ui->gridLayout->addWidget(chart);
     ui->gridLayout->addWidget(indicator, 0,1);
     ui->gridLayout->addWidget(chart1);
+    ui->tabWidget->setTabText(ui->tabWidget->count()-1, "+");
+    ui->tabWidget->tabBar()->tabButton(ui->tabWidget->count()-1, QTabBar::RightSide)->resize(0, 0);
+    connect(ui->tabWidget->tabBar(), &QTabBar::tabCloseRequested, ui->tabWidget->tabBar(), &QTabBar::removeTab);
     //    ui->scrollAreaWidgetContents->setWidgetResizable(true);
     cli = new QMqttClient();
     //    chart->move(400, 200);
@@ -122,7 +125,6 @@ void MainWindow::AddWidget(QString type, QString name, QString topic)
             ValueWidget *v = new ValueWidget(name, topic);
             widgets.append(v);
             ui->gridLayout->addWidget(v);
-
         }
 
 
@@ -138,3 +140,34 @@ void MainWindow::sliderSubscription()
     QString slider = QString::fromStdString("slider");
     auto subscription = cli->subscribe(slider);
 }
+
+void MainWindow::on_tabWidget_currentChanged(int index)
+{
+    if(index == ui->tabWidget->count()-1)
+    {
+        QWidget *newTab = new QWidget();
+        QHBoxLayout *layout = new QHBoxLayout();
+        QLabel *label = new QLabel();
+        label->setText(QString::number(index));
+        layout->addWidget(label);
+        newTab->setLayout(layout);
+        ui->tabWidget->insertTab(ui->tabWidget->count()-1, newTab, "Tab" + QString::number(ui->tabWidget->count()-1));
+        ui->tabWidget->setCurrentIndex(ui->tabWidget->count()-2);
+    }
+    qDebug() << ui->tabWidget->count();
+    qDebug() << "index = " << index;
+}
+
+
+//void MainWindow::on_tabWidget_customContextMenuRequested(const QPoint &pos)
+//{
+//    TabMenu->addAction("Item 1");
+//}
+
+
+void MainWindow::on_tabWidget_tabCloseRequested(int index)
+{
+    delete ui->tabWidget->widget(index);
+    ui->tabWidget->removeTab(index);
+}
+
