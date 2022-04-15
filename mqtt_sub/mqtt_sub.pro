@@ -19,6 +19,7 @@ SOURCES += \
     mainwindow.cpp \
     mqttwidget.cpp \
     switcherwidget.cpp \
+    tabcustomwidget.cpp \
     valuewidget.cpp
 
 HEADERS += \
@@ -31,6 +32,7 @@ HEADERS += \
     mainwindow.h \
     mqttwidget.h \
     switcherwidget.h \
+    tabcustomwidget.h \
     valuewidget.h
 
 FORMS += \

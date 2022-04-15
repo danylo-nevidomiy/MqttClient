@@ -15,7 +15,7 @@ class IndicatorWidget : public QWidget, public MqttWidget
 
 public:
     explicit IndicatorWidget(QString name, QString topic, QWidget *parent = 0);
-    ~IndicatorWidget();
+    virtual ~IndicatorWidget();
     void setAngle(int angle);
     void setValue(QString value);
 

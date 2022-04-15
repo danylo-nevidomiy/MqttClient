@@ -4,6 +4,7 @@
 #include <QMainWindow>
 #include <QtMqtt/QMqttClient>
 #include <QVector>
+#include <QMap>
 //#include <indicator.h>
 #include "indicatorwidget.h"
 #include "chartwidget.h"
@@ -11,6 +12,8 @@
 #include "switcherwidget.h"
 #include "inputwidget.h"
 #include "valuewidget.h"
+#include "tabcustomwidget.h"
+
 
 QT_BEGIN_NAMESPACE
 namespace Ui { class MainWindow; }
@@ -55,5 +58,8 @@ private:
     void sliderSubscription();
     QStringList list = {"Indicator", "Chart", "Switcher", "Input", "Value"};
     QMenu *TabMenu;
+    QMap<int, QUuid> TabsIdentifiers;
+    QMap<QUuid, TabCustomWidget*> Tabs;
+    unsigned int currentTab;
 };
 #endif // MAINWINDOW_H

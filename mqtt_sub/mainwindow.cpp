@@ -13,6 +13,12 @@ MainWindow::MainWindow(QWidget *parent)
 {
 
     ui->setupUi(this);
+    QString newTab = "default";
+    int index = 0;
+    TabCustomWidget *defaultTab = new TabCustomWidget(newTab);
+    Tabs.insert(defaultTab->getIndex(), defaultTab);
+    TabsIdentifiers.insert(index, defaultTab->getIndex());
+    currentTab = index;
     indicator = new IndicatorWidget("i", "indicator", ui->scrollAreaWidgetContents_2);
     widget = new IndicatorWidget("2", "indicator", ui->scrollAreaWidgetContents_2);
     chart = new ChartWidget("c", "chart", ui->scrollAreaWidgetContents_2);
@@ -39,7 +45,7 @@ MainWindow::MainWindow(QWidget *parent)
     ui->gridLayout->addWidget(chart1);
     ui->tabWidget->setTabText(ui->tabWidget->count()-1, "+");
     ui->tabWidget->tabBar()->tabButton(ui->tabWidget->count()-1, QTabBar::RightSide)->resize(0, 0);
-    connect(ui->tabWidget->tabBar(), &QTabBar::tabCloseRequested, ui->tabWidget->tabBar(), &QTabBar::removeTab);
+//    currentTab = ui->tabWidget->findChild<QTabBar *>;
     //    ui->scrollAreaWidgetContents->setWidgetResizable(true);
     cli = new QMqttClient();
     //    chart->move(400, 200);
@@ -96,35 +102,37 @@ void MainWindow::on_actionAdd_triggered()
 void MainWindow::AddWidget(QString type, QString name, QString topic)
 {
 
+    QUuid cur = TabsIdentifiers[currentTab];
+    TabCustomWidget *tcw = Tabs[cur];
     qDebug() << "Adding...";
         if(QString::compare(type, QString::fromStdString("Indicator")) == 0)
         {
             IndicatorWidget *i = new IndicatorWidget(name, topic);
             widgets.append(i);
-            ui->gridLayout->addWidget(i);
+            tcw->getLayout()->addWidget(i);
         }else if(QString::compare(type, QString::fromStdString("Chart")) == 0)
         {
             ChartWidget *c = new ChartWidget(name, topic, ui->scrollAreaWidgetContents_2);
             widgets.append(c);
-            ui->gridLayout->addWidget(c);
+            tcw->getLayout()->addWidget(c);
 
         }else if(QString::compare(type, QString::fromStdString("Switcher")) == 0)
         {
             SwitcherWidget *s = new SwitcherWidget(name, topic);
             widgets.append(s);
-            ui->gridLayout->addWidget(s);
+            tcw->getLayout()->addWidget(s);
             connect(s, SIGNAL(inputValueChanged(QString, QString)), this, SLOT(sendValue(QString, QString)));
         }else if(QString::compare(type, QString::fromStdString("Input")) == 0)
         {
             InputWidget *ip = new InputWidget(name, topic);
             widgets.append(ip);
-            ui->gridLayout->addWidget(ip);
+            tcw->getLayout()->addWidget(ip);
             connect(ip, SIGNAL(valueChanged(QString, QString)), this, SLOT(sendValue(QString, QString)));
         }else if(QString::compare(type, QString::fromStdString("Value")) == 0)
         {
             ValueWidget *v = new ValueWidget(name, topic);
             widgets.append(v);
-            ui->gridLayout->addWidget(v);
+            tcw->getLayout()->addWidget(v);
         }
 
 
@@ -145,14 +153,16 @@ void MainWindow::on_tabWidget_currentChanged(int index)
 {
     if(index == ui->tabWidget->count()-1)
     {
-        QWidget *newTab = new QWidget();
-        QHBoxLayout *layout = new QHBoxLayout();
-        QLabel *label = new QLabel();
-        label->setText(QString::number(index));
-        layout->addWidget(label);
-        newTab->setLayout(layout);
-        ui->tabWidget->insertTab(ui->tabWidget->count()-1, newTab, "Tab" + QString::number(ui->tabWidget->count()-1));
+        unsigned int newTab = ui->tabWidget->count()-1;
+        QString tabName = "Tab" + QString::number(newTab);
+        TabCustomWidget *tcw = new TabCustomWidget(tabName);
+        Tabs.insert(tcw->getIndex(), tcw);
+        TabsIdentifiers.insert(newTab, tcw->getIndex());
+        currentTab = newTab;
+        ui->tabWidget->insertTab(newTab, tcw->getTabWidget(), tabName);
         ui->tabWidget->setCurrentIndex(ui->tabWidget->count()-2);
+    }else{
+        currentTab = index;
     }
     qDebug() << ui->tabWidget->count();
     qDebug() << "index = " << index;
@@ -167,7 +177,24 @@ void MainWindow::on_tabWidget_currentChanged(int index)
 
 void MainWindow::on_tabWidget_tabCloseRequested(int index)
 {
-    delete ui->tabWidget->widget(index);
+    qDebug() << "removing index = " << index;
+    QUuid cur = TabsIdentifiers[index];
+    for(int i=0;i<widgets.length();i++)
+    {
+        if(widgets.at(i)->getTabIndex() == cur)
+        {
+            delete widgets.at(i);
+            widgets.remove(i);
+        }
+    }
+    for(int i=index;i<ui->tabWidget->count();i++)
+    {
+        QUuid tmp = TabsIdentifiers[i];
+        TabsIdentifiers.remove(i);
+        TabsIdentifiers.insert(i-1, TabsIdentifiers[i]);
+
+    }
+    Tabs.remove(cur);
     ui->tabWidget->removeTab(index);
 }
 
