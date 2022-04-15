@@ -117,6 +117,12 @@ void MainWindow::AddWidget(QString type, QString name, QString topic)
             widgets.append(ip);
             ui->gridLayout->addWidget(ip);
             connect(ip, SIGNAL(valueChanged(QString, QString)), this, SLOT(sendValue(QString, QString)));
+        }else if(QString::compare(type, QString::fromStdString("Value")) == 0)
+        {
+            ValueWidget *v = new ValueWidget(name, topic);
+            widgets.append(v);
+            ui->gridLayout->addWidget(v);
+
         }
 
 

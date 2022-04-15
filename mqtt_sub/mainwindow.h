@@ -10,6 +10,7 @@
 #include "addwidgetdialog.h"
 #include "switcherwidget.h"
 #include "inputwidget.h"
+#include "valuewidget.h"
 
 QT_BEGIN_NAMESPACE
 namespace Ui { class MainWindow; }
@@ -46,6 +47,6 @@ private:
     AddWidgetDialog *awd;
     QVector<MqttWidget*> widgets;
     void sliderSubscription();
-    QStringList list = {"Indicator", "Chart", "Switcher", "Input"};
+    QStringList list = {"Indicator", "Chart", "Switcher", "Input", "Value"};
 };
 #endif // MAINWINDOW_H
