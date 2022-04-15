@@ -56,21 +56,6 @@ void IndicatorWidget::setValue(QString value)
 /* If same radio button will be pressed,
  * then we execute the drawing new view of circle
  * */
-void IndicatorWidget::on_radioButton_red_clicked()
-{
-    repaint();
-}
-
-void IndicatorWidget::on_radioButton_green_clicked()
-{
-    repaint();
-}
-
-void IndicatorWidget::on_radioButton_blue_clicked()
-{
-    repaint();
-}
-
 void IndicatorWidget::on_slider_valueChanged(int value)
 {
     angle = value+135;

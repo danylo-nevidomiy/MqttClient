@@ -25,11 +25,6 @@ protected:
     void paintEvent(QPaintEvent *event);
 
 private slots:
-    void on_radioButton_red_clicked();
-
-    void on_radioButton_green_clicked();
-
-    void on_radioButton_blue_clicked();
 
     void on_slider_valueChanged(int value);
 

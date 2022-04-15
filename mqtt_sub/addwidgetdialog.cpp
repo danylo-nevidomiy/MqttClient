@@ -1,14 +1,21 @@
 #include "addwidgetdialog.h"
 #include "ui_addwidgetdialog.h"
+#include "mainwindow.h"
 
-AddWidgetDialog::AddWidgetDialog(QWidget *parent) :
+AddWidgetDialog::AddWidgetDialog(QStringList list, QWidget *parent) :
     QDialog(parent),
     ui(new Ui::AddWidgetDialog)
 {
     ui->setupUi(this);
-    QStringList list;
-    list.append("Indicator");
-    list.append("Chart");
+
+//    QMetaEnum MetaEnum = QMetaEnum::fromType<MainWindow::WGS>();
+//    for(int i=0;i<MetaEnum.keyCount();i++)
+//    {
+//        list.append(MetaEnum.valueToKey(i));
+//    }
+//    list.append("Indicator");
+//    list.append("Chart");
+//    list.append("Switcher");
     ui->comboBox->addItems(list);
 }
 

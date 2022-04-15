@@ -14,9 +14,12 @@ SOURCES += \
 #    coordinatemapper.cpp \
     #indicator.cpp \
     indicatorwidget.cpp \
+    inputwidget.cpp \
     main.cpp \
     mainwindow.cpp \
-    mqttwidget.cpp
+    mqttwidget.cpp \
+    switcherwidget.cpp \
+    valuewidget.cpp
 
 HEADERS += \
     addwidgetdialog.h \
@@ -24,14 +27,20 @@ HEADERS += \
 #    coordinatemapper.h \
     #indicator.h \
     indicatorwidget.h \
+    inputwidget.h \
     mainwindow.h \
-    mqttwidget.h
+    mqttwidget.h \
+    switcherwidget.h \
+    valuewidget.h
 
 FORMS += \
     addwidgetdialog.ui \
     chartwidget.ui \
     indicatorwidget.ui \
-    mainwindow.ui
+    inputwidget.ui \
+    mainwindow.ui \
+    switcherwidget.ui \
+    valuewidget.ui
 
 # Default rules for deployment.
 #qnx: target.path = /tmp/$${TARGET}/bin

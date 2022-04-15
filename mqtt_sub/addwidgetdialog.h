@@ -12,7 +12,7 @@ class AddWidgetDialog : public QDialog
     Q_OBJECT
 
 public:
-    explicit AddWidgetDialog(QWidget *parent = nullptr);
+    explicit AddWidgetDialog(QStringList list, QWidget *parent = nullptr);
     ~AddWidgetDialog();
 
 private slots:

@@ -6,6 +6,7 @@
 #include <QString>
 #include <QLayout>
 #include <QColor>
+
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
     , ui(new Ui::MainWindow)
@@ -14,10 +15,12 @@ MainWindow::MainWindow(QWidget *parent)
     ui->setupUi(this);
     indicator = new IndicatorWidget("i", "indicator", ui->scrollAreaWidgetContents_2);
     widget = new IndicatorWidget("2", "indicator", ui->scrollAreaWidgetContents_2);
-    chart = new ChartWidget(ui->scrollAreaWidgetContents_2);
+    chart = new ChartWidget("c", "chart", ui->scrollAreaWidgetContents_2);
+    chart1 = new ChartWidget("zzz", "zzz", ui->scrollAreaWidgetContents_2);
     widgets.append(indicator);
     widgets.append(chart);
     widgets.append(widget);
+    widgets.append(chart1);
     //    ui->scrollArea->setParent(this);
     //    ui->scrollArea->setVerticalScrollBarPolicy(Qt::ScrollBarAlwaysOn);
     //    ui->scrollArea->setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOn);
@@ -25,14 +28,15 @@ MainWindow::MainWindow(QWidget *parent)
     //    ui->scrollArea->setGeometry( 0, 0, 1000, 1000 );
     //    ui->scrollArea->setWidget(ui->scrollAreaWidgetContents);
 
-//    auto p = ui->scrollAreaWidgetContents_2->palette();
-//    p.setColor(ui->scrollAreaWidgetContents_2->backgroundRole(), Qt::red);
-//    ui->scrollAreaWidgetContents_2->setPalette(p);
+    //    auto p = ui->scrollAreaWidgetContents_2->palette();
+    //    p.setColor(ui->scrollAreaWidgetContents_2->backgroundRole(), Qt::red);
+    //    ui->scrollAreaWidgetContents_2->setPalette(p);
 
     ui->gridLayout = new QGridLayout(ui->scrollAreaWidgetContents_2);
     ui->gridLayout->addWidget(widget);
     ui->gridLayout->addWidget(chart);
     ui->gridLayout->addWidget(indicator, 0,1);
+    ui->gridLayout->addWidget(chart1);
     //    ui->scrollAreaWidgetContents->setWidgetResizable(true);
     cli = new QMqttClient();
     //    chart->move(400, 200);
@@ -51,27 +55,12 @@ MainWindow::MainWindow(QWidget *parent)
                 + message
                 + QLatin1Char('\n');
         qDebug() << content;
-        //         ui->messageText->setText(message);
-        if(QString::compare(topic.name(), QString::fromStdString("slider")) == 0)
+        for(auto i : widgets)
         {
-            ui->sliderValue->setText(message);
-        }else if(QString::compare(topic.name(), QString::fromStdString("indicator")) == 0)
-        {
-            widget->setAngle(message.toInt());
-        }else if(QString::compare(topic.name(), QString::fromStdString("chart")) == 0)
-        {
-            chart->addValue(message.toDouble());
-        }
-        else
-        {
-            for(auto i : subs)
+            if(QString::compare(topic.name(), i->getTopic()) == 0)
             {
-                if(QString::compare(topic.name(), i) == 0)
-                {
-                    ui->messageText->setText(message);
-                }
+                i->setValue(message);
             }
-
         }
     });
 }
@@ -96,28 +85,47 @@ void MainWindow::on_pushButton_sub_clicked()
 }
 void MainWindow::on_actionAdd_triggered()
 {
-    awd = new AddWidgetDialog();
-    connect(awd, SIGNAL(AddWidget(QString, QString)), this, SLOT(AddWidget(QString, QString)));
+    awd = new AddWidgetDialog(list);
+    connect(awd, SIGNAL(AddWidget(QString, QString, QString)), this, SLOT(AddWidget(QString, QString, QString)));
     awd->show();
 }
 
 void MainWindow::AddWidget(QString type, QString name, QString topic)
 {
+
     qDebug() << "Adding...";
-    if(QString::compare(type, QString::fromStdString("Indicator")) == 0)
-    {
-        IndicatorWidget *i = new IndicatorWidget(name, topic);
+        if(QString::compare(type, QString::fromStdString("Indicator")) == 0)
+        {
+            IndicatorWidget *i = new IndicatorWidget(name, topic);
+            widgets.append(i);
+            ui->gridLayout->addWidget(i);
+        }else if(QString::compare(type, QString::fromStdString("Chart")) == 0)
+        {
+            ChartWidget *c = new ChartWidget(name, topic, ui->scrollAreaWidgetContents_2);
+            widgets.append(c);
+            ui->gridLayout->addWidget(c);
 
-        ui->gridLayout->addWidget(i);
-    }else if(QString::compare(type, QString::fromStdString("Chart")) == 0)
-    {
-        ChartWidget *c = new ChartWidget();
+        }else if(QString::compare(type, QString::fromStdString("Switcher")) == 0)
+        {
+            SwitcherWidget *s = new SwitcherWidget(name, topic);
+            widgets.append(s);
+            ui->gridLayout->addWidget(s);
+            connect(s, SIGNAL(inputValueChanged(QString, QString)), this, SLOT(sendValue(QString, QString)));
+        }else if(QString::compare(type, QString::fromStdString("Input")) == 0)
+        {
+            InputWidget *ip = new InputWidget(name, topic);
+            widgets.append(ip);
+            ui->gridLayout->addWidget(ip);
+            connect(ip, SIGNAL(valueChanged(QString, QString)), this, SLOT(sendValue(QString, QString)));
+        }
 
-        ui->gridLayout->addWidget(c);
 
-    }
-//    ui->gridLayoutWidget->repaint();
-//    ui->scrollAreaWidgetContents_2->repaint();
+    cli->subscribe(topic);
+}
+
+void MainWindow::sendValue(QString topic, QString value)
+{
+    cli->publish(topic, value.toUtf8());
 }
 void MainWindow::sliderSubscription()
 {

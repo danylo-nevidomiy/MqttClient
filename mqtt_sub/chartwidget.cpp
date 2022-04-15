@@ -1,8 +1,8 @@
 #include "chartwidget.h"
 #include "ui_chartwidget.h"
 
-ChartWidget::ChartWidget(QWidget *parent) :
-    MqttWidget(parent),
+ChartWidget::ChartWidget(QString name, QString topic, QWidget *parent) :
+    QChartView(parent), MqttWidget(name, topic),
     ui(new Ui::ChartWidget)
 {
     ui->setupUi(this);
@@ -17,7 +17,7 @@ ChartWidget::ChartWidget(QWidget *parent) :
     gradient->setCoordinateMode(QGradient::ObjectBoundingMode);
     pen = new QPen(0x059605);
     pen->setWidth(3);
-    chart->setTitle(title);
+    chart->setTitle(name);
 
     this->setRenderHint(QPainter::Antialiasing);
     this->setChart(chart);
@@ -49,7 +49,7 @@ void ChartWidget::showEvent(QShowEvent *event)
         qDebug() << "points.at(i) = " << points.at(i);
         *series << QPointF(i, points.at(i));
     }
-    series->setName(name);
+    series->setName(nameIS);
     series->setPen(*pen);
     series->setBrush(*gradient);
     chart->addSeries(series);
@@ -116,4 +116,10 @@ void ChartWidget::addValue(double value)
 void ChartWidget::setValue(QString value)
 {
     addValue(value.toDouble());
+}
+
+void ChartWidget::setName(const QString &newName)
+{
+    MqttWidget::setName(newName);
+    chart->setTitle(newName);
 }

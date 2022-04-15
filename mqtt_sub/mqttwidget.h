@@ -12,12 +12,16 @@ public:
     MqttWidget(QString name, QString topic, QWidget *parent = nullptr);
     void virtual setValue(QString value) = 0;
     const QString &getName() const;
-    void setName(const QString &newName);
+    void virtual setName(const QString &newName);
     const QString &getTopic() const;
-    void setTopic(const QString &newTopic);
-private:
+    void virtual setTopic(const QString &newTopic);
+protected:
     QString name;
     QString topic;
+    unsigned int row;
+    unsigned int column;
+signals:
+//    virtual void valueChanged(QString topic, QString value) = 0;
 };
 
 #endif // MQTTWIDGET_H

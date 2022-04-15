@@ -17,10 +17,11 @@ class ChartWidget : public QChartView, public MqttWidget
     Q_OBJECT
 
 public:
-    explicit ChartWidget(QWidget *parent = nullptr);
+    explicit ChartWidget(QString name, QString topic, QWidget *parent = nullptr);
     ~ChartWidget();
     void addValue(double value);
     void setValue(QString value);
+    void virtual setName(const QString &newName);
 
 protected:
     /* Define method of base class
@@ -36,7 +37,7 @@ private:
     double maxValue = 0;
     double minValue = 0;
     QString title = "Simple areachart example";
-    QString name = "Victims";
+    QString nameIS = "Value";
     QLinearGradient *gradient;
     QPen *pen;
     QLineSeries *series = new QLineSeries();
